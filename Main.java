@@ -191,7 +191,7 @@ public class Main extends JFrame implements ActionListener {
     }
 
     void lobby(){
-        JFrame j = new JFrame("Boutiquee Managemant System");
+        JFrame j = new JFrame("home Page");
         j.setSize(900, 600);
 
         JPanel panel = new JPanel();
@@ -207,7 +207,149 @@ public class Main extends JFrame implements ActionListener {
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(Reciept , gbc);
+
+        Reciept.addActionListener(e -> {
+            // Main JFrame setup
+            JFrame frame = new JFrame("Reciept");
+            frame.setSize(800, 600);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLayout(new BorderLayout(10, 10));
         
+            // Title
+            JPanel titlePanel = new JPanel();
+            JLabel titleLabel = new JLabel("Boutique Management System");
+            titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+            titlePanel.add(titleLabel);
+            frame.add(titlePanel, BorderLayout.NORTH);
+        
+            // Menu
+            JPanel menuPanel = new JPanel();
+            menuPanel.setLayout(new GridLayout(6, 2, 10, 10));
+        
+            JLabel menuLabel = new JLabel("Menu:");
+            menuLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            menuPanel.add(menuLabel);
+            menuPanel.add(new JLabel());
+        
+            JCheckBox coffeeBox = new JCheckBox("Coffee - $5");
+            menuPanel.add(coffeeBox);
+            JTextField coffeeQty = new JTextField("0");
+            menuPanel.add(coffeeQty);
+        
+            JCheckBox teaBox = new JCheckBox("Tea - $4");
+            menuPanel.add(teaBox);
+            JTextField teaQty = new JTextField("0");
+            menuPanel.add(teaQty);
+        
+            JCheckBox sandwichBox = new JCheckBox("Sandwich - $7");
+            menuPanel.add(sandwichBox);
+            JTextField sandwichQty = new JTextField("0");
+            menuPanel.add(sandwichQty);
+        
+            JCheckBox cakeBox = new JCheckBox("Cake - $6");
+            menuPanel.add(cakeBox);
+            JTextField cakeQty = new JTextField("0");
+            menuPanel.add(cakeQty);
+        
+            JCheckBox iceTeaBox = new JCheckBox("Ice Tea - $3");
+            menuPanel.add(iceTeaBox);
+            JTextField iceTeaQty = new JTextField("0");
+            menuPanel.add(iceTeaQty);
+        
+            frame.add(menuPanel, BorderLayout.CENTER);
+        
+            // Right Panel for Receipt
+            JPanel receiptPanel = new JPanel(new BorderLayout(10, 10));
+            JLabel receiptLabel = new JLabel("Receipt:");
+            receiptLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            receiptPanel.add(receiptLabel, BorderLayout.NORTH);
+        
+            JTextArea receiptArea = new JTextArea();
+            receiptArea.setEditable(false);
+            receiptArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            receiptPanel.add(new JScrollPane(receiptArea), BorderLayout.CENTER);
+        
+            frame.add(receiptPanel, BorderLayout.EAST);
+        
+            // Bottom Panel for Total and Buttons
+            JPanel bottomPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+            JLabel totalLabel = new JLabel("Total: $0.00");
+            totalLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            bottomPanel.add(totalLabel);
+        
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+            JButton calculateButton = new JButton("Calculate Total");
+            JButton resetButton = new JButton("Reset");
+            JButton printReceiptButton = new JButton("Print Receipt");
+        
+            buttonPanel.add(calculateButton);
+            buttonPanel.add(resetButton);
+            buttonPanel.add(printReceiptButton);
+            bottomPanel.add(buttonPanel);
+        
+            frame.add(bottomPanel, BorderLayout.SOUTH);
+        
+            // Action Listeners for Buttons
+            calculateButton.addActionListener(ev -> {
+                double total = 0;
+                StringBuilder receipt = new StringBuilder("Receipt:\n");
+        
+                if (coffeeBox.isSelected()) {
+                    int qty = Integer.parseInt(coffeeQty.getText());
+                    total += qty * 5;
+                    receipt.append("Coffee x").append(qty).append(" - $").append(qty * 5).append("\n");
+                }
+                if (teaBox.isSelected()) {
+                    int qty = Integer.parseInt(teaQty.getText());
+                    total += qty * 4;
+                    receipt.append("Tea x").append(qty).append(" - $").append(qty * 4).append("\n");
+                }
+                if (sandwichBox.isSelected()) {
+                    int qty = Integer.parseInt(sandwichQty.getText());
+                    total += qty * 7;
+                    receipt.append("Sandwich x").append(qty).append(" - $").append(qty * 7).append("\n");
+                }
+                if (cakeBox.isSelected()) {
+                    int qty = Integer.parseInt(cakeQty.getText());
+                    total += qty * 6;
+                    receipt.append("Cake x").append(qty).append(" - $").append(qty * 6).append("\n");
+                }
+                if (iceTeaBox.isSelected()) {
+                    int qty = Integer.parseInt(iceTeaQty.getText());
+                    total += qty * 3;
+                    receipt.append("Ice Tea x").append(qty).append(" - $").append(qty * 3).append("\n");
+                }
+        
+                totalLabel.setText("Total: $" + String.format("%.2f", total));
+                receipt.append("\nTotal: $").append(String.format("%.2f", total));
+                receiptArea.setText(receipt.toString());
+            });
+        
+            resetButton.addActionListener(ev -> {
+                coffeeBox.setSelected(false);
+                teaBox.setSelected(false);
+                sandwichBox.setSelected(false);
+                cakeBox.setSelected(false);
+                iceTeaBox.setSelected(false);
+        
+                coffeeQty.setText("0");
+                teaQty.setText("0");
+                sandwichQty.setText("0");
+                cakeQty.setText("0");
+                iceTeaQty.setText("0");
+        
+                totalLabel.setText("Total: $0.00");
+                receiptArea.setText("");
+            });
+        
+            printReceiptButton.addActionListener(ev -> {
+                JOptionPane.showMessageDialog(frame, "Receipt Printed Successfully!", "Print", JOptionPane.INFORMATION_MESSAGE);
+            });
+        
+            frame.setVisible(true);
+        });
+        
+
         JButton Item = new JButton("Items");
         Item.setFont(new Font("Arial", Font.PLAIN, 20));
         Item.setPreferredSize(new Dimension(200, 50));
@@ -227,7 +369,7 @@ public class Main extends JFrame implements ActionListener {
 
                 // Add ActionListener to Employee's Info button
                 employee.addActionListener(e -> {
-                // Open a new panel with "Add" and "View" buttons
+                
                 JFrame employeeFrame = new JFrame("Employee Info");
                 employeeFrame.setSize(400, 300);
                 employeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
