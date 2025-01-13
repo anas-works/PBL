@@ -20,7 +20,7 @@ public class Main extends JFrame implements ActionListener {
         container = getContentPane();
         container.setLayout(null);
 
-        titleLabel = new JLabel("Boutiquee Management System");
+        titleLabel = new JLabel("Boutique Management System");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setSize(500, 30);
         titleLabel.setLocation(250, 30);
@@ -315,6 +315,30 @@ public class Main extends JFrame implements ActionListener {
                     addGbc.gridwidth = 2;
                     JButton addEmployeeButton = new JButton("Add");
                     addPanel.add(addEmployeeButton, addGbc);
+
+                    // ActionListener for Add Employee Button
+                    addEmployeeButton.addActionListener(evt -> {
+                    String name = nameField.getText();
+                    String contact = contactField.getText();
+                    String designation = designationField.getText();
+                    String salary = salaryField.getText();
+                    String address = addressField.getText();
+
+                    // You can process or save the data here
+                    JOptionPane.showMessageDialog(addEmployeeFrame,
+                            "Employee Added:\nName: " + name +
+                            "\nContact: " + contact +
+                            "\nDesignation: " + designation +
+                            "\nSalary: " + salary +
+                            "\nAddress: " + address);
+
+                    // Clear fields after adding
+                    nameField.setText("");
+                    contactField.setText("");
+                    designationField.setText("");
+                    salaryField.setText("");
+                    addressField.setText("");
+                });
                     
                     addEmployeeFrame.add(addPanel, BorderLayout.CENTER);
                     addEmployeeFrame.setVisible(true);
