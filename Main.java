@@ -168,7 +168,7 @@ public class Main extends JFrame implements ActionListener {
         
         frame.setVisible(true);
 
-    }
+     }
         else if (e.getSource() == loginButton) {
             String userText = userTextField.getText();
             String pwdText = new String(passwordField.getPassword());
@@ -216,7 +216,7 @@ public class Main extends JFrame implements ActionListener {
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(Item , gbc);
-        
+
         JButton employee = new JButton("Employee's Info");
         employee.setFont(new Font("Arial", Font.PLAIN, 20));
         employee.setPreferredSize(new Dimension(200, 50));
@@ -224,7 +224,108 @@ public class Main extends JFrame implements ActionListener {
         gbc.gridwidth = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(employee, gbc);
-        
+
+                // Add ActionListener to Employee's Info button
+                employee.addActionListener(e -> {
+                // Open a new panel with "Add" and "View" buttons
+                JFrame employeeFrame = new JFrame("Employee Info");
+                employeeFrame.setSize(400, 300);
+                employeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+
+                JPanel employeePanel = new JPanel();
+                employeePanel.setLayout(new GridBagLayout());
+                GridBagConstraints empGbc = new GridBagConstraints();
+                empGbc.insets = new Insets(10, 10, 10, 10);
+
+                // Add Button
+                JButton addButton = new JButton("Add");
+                addButton.setFont(new Font("Arial", Font.PLAIN, 18));
+                addButton.setPreferredSize(new Dimension(150, 40));
+                empGbc.gridx = 0;
+                empGbc.gridy = 0;
+                employeePanel.add(addButton, empGbc);
+
+                 // View Button
+                 JButton viewButton = new JButton("View");
+                 viewButton.setFont(new Font("Arial", Font.PLAIN, 18));
+                 viewButton.setPreferredSize(new Dimension(150, 40));
+                 empGbc.gridy = 1;
+                 employeePanel.add(viewButton, empGbc);
+
+                 // Add ActionListener to Add button
+                 addButton.addActionListener(ev -> {
+                    // Open a new frame for adding employee details
+                    JFrame addEmployeeFrame = new JFrame("Add Employee");
+                    addEmployeeFrame.setSize(500, 400);
+                    addEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    
+                    JPanel addPanel = new JPanel();
+                    addPanel.setLayout(new GridBagLayout());
+                    GridBagConstraints addGbc = new GridBagConstraints();
+                    addGbc.insets = new Insets(10, 10, 10, 10);
+    
+                    // Employee Name
+                    addGbc.gridx = 0;
+                    addGbc.gridy = 0;
+                    addPanel.add(new JLabel("Employee Name:"), addGbc);
+    
+                    addGbc.gridx = 1;
+                    JTextField nameField = new JTextField(15);
+                    addPanel.add(nameField, addGbc);
+    
+                    // Contact No
+                    addGbc.gridx = 0;
+                    addGbc.gridy = 1;
+                    addPanel.add(new JLabel("Contact No:"), addGbc);
+    
+                    addGbc.gridx = 1;
+                    JTextField contactField = new JTextField(15);
+                    addPanel.add(contactField, addGbc);
+    
+                    // Designation
+                    addGbc.gridx = 0;
+                    addGbc.gridy = 2;
+                    addPanel.add(new JLabel("Designation:"), addGbc);
+    
+                    addGbc.gridx = 1;
+                    JTextField designationField = new JTextField(15);
+                    addPanel.add(designationField, addGbc);
+    
+                    // Salary
+                    addGbc.gridx = 0;
+                    addGbc.gridy = 3;
+                    addPanel.add(new JLabel("Salary:"), addGbc);
+    
+                    addGbc.gridx = 1;
+                    JTextField salaryField = new JTextField(15);
+                    addPanel.add(salaryField, addGbc);
+    
+                    // Address
+                    addGbc.gridx = 0;
+                    addGbc.gridy = 4;
+                    addPanel.add(new JLabel("Address:"), addGbc);
+    
+                    addGbc.gridx = 1;
+                    JTextField addressField = new JTextField(15);
+                    addPanel.add(addressField, addGbc);
+    
+                    // Add Button
+                    addGbc.gridx = 0;
+                    addGbc.gridy = 5;
+                    addGbc.gridwidth = 2;
+                    JButton addEmployeeButton = new JButton("Add");
+                    addPanel.add(addEmployeeButton, addGbc);
+                    
+                    addEmployeeFrame.add(addPanel, BorderLayout.CENTER);
+                    addEmployeeFrame.setVisible(true);
+                });
+
+            // Add employeePanel to employeeFrame
+            employeeFrame.add(employeePanel, BorderLayout.CENTER);
+            employeeFrame.setVisible(true);
+
+      });
+
         JButton transact = new JButton("Transaction");
         transact.setFont(new Font("Arial", Font.PLAIN, 20));
         transact.setPreferredSize(new Dimension(200, 50));
@@ -240,6 +341,6 @@ public class Main extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         new Main();
-        // kanwal f u
+        
     }
 }
