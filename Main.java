@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+// Database
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -178,7 +181,6 @@ public class Main extends JFrame implements ActionListener {
             if (userText.equalsIgnoreCase("admin") && pwdText.equals("admin")) {
                 lobby();
             } else {
-                JOptionPane.showMessageDialog(this, "Invalid Username or Password");
             }
         } else if (e.getSource() == resetButton) {
             userTextField.setText("");
