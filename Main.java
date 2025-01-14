@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main extends JFrame implements ActionListener {
     private Container container;
@@ -231,30 +234,30 @@ public class Main extends JFrame implements ActionListener {
             menuPanel.add(menuLabel);
             menuPanel.add(new JLabel());
         
-            JCheckBox coffeeBox = new JCheckBox("Coffee - $5");
-            menuPanel.add(coffeeBox);
-            JTextField coffeeQty = new JTextField("0");
-            menuPanel.add(coffeeQty);
+            JCheckBox frocks = new JCheckBox("Frock - $25");
+            menuPanel.add(frocks);
+            JTextField frockqty = new JTextField("0");
+            menuPanel.add(frockqty);
         
-            JCheckBox teaBox = new JCheckBox("Tea - $4");
-            menuPanel.add(teaBox);
-            JTextField teaQty = new JTextField("0");
-            menuPanel.add(teaQty);
+            JCheckBox kurti = new JCheckBox("Kurti - $20");
+            menuPanel.add(kurti);
+            JTextField kurtiqty = new JTextField("0");
+            menuPanel.add(kurtiqty);
         
-            JCheckBox sandwichBox = new JCheckBox("Sandwich - $7");
-            menuPanel.add(sandwichBox);
-            JTextField sandwichQty = new JTextField("0");
-            menuPanel.add(sandwichQty);
+            JCheckBox maxi = new JCheckBox("Maxi - $35");
+            menuPanel.add(maxi);
+            JTextField maxiqty = new JTextField("0");
+            menuPanel.add(maxiqty);
         
-            JCheckBox cakeBox = new JCheckBox("Cake - $6");
-            menuPanel.add(cakeBox);
-            JTextField cakeQty = new JTextField("0");
-            menuPanel.add(cakeQty);
+            JCheckBox sari = new JCheckBox("Saari - $40");
+            menuPanel.add(sari);
+            JTextField sariqty = new JTextField("0");
+            menuPanel.add(sariqty);
         
-            JCheckBox iceTeaBox = new JCheckBox("Ice Tea - $3");
-            menuPanel.add(iceTeaBox);
-            JTextField iceTeaQty = new JTextField("0");
-            menuPanel.add(iceTeaQty);
+            JCheckBox suit = new JCheckBox("Suit - $24");
+            menuPanel.add(suit);
+            JTextField suitqty = new JTextField("0");
+            menuPanel.add(suitqty);
         
             frame.add(menuPanel, BorderLayout.CENTER);
         
@@ -294,28 +297,28 @@ public class Main extends JFrame implements ActionListener {
                 double total = 0;
                 StringBuilder receipt = new StringBuilder("Receipt:\n");
         
-                if (coffeeBox.isSelected()) {
-                    int qty = Integer.parseInt(coffeeQty.getText());
-                    total += qty * 5;
-                    receipt.append("Coffee x").append(qty).append(" - $").append(qty * 5).append("\n");
+                if (frocks.isSelected()) {
+                    int qty = Integer.parseInt(frockqty.getText());
+                    total += qty * 20;
+                    receipt.append("Frock x").append(qty).append(" - $").append(qty * 20).append("\n");
                 }
-                if (teaBox.isSelected()) {
-                    int qty = Integer.parseInt(teaQty.getText());
+                if (kurti.isSelected()) {
+                    int qty = Integer.parseInt(kurtiqty.getText());
                     total += qty * 4;
                     receipt.append("Tea x").append(qty).append(" - $").append(qty * 4).append("\n");
                 }
-                if (sandwichBox.isSelected()) {
-                    int qty = Integer.parseInt(sandwichQty.getText());
+                if (maxi.isSelected()) {
+                    int qty = Integer.parseInt(maxiqty.getText());
                     total += qty * 7;
                     receipt.append("Sandwich x").append(qty).append(" - $").append(qty * 7).append("\n");
                 }
-                if (cakeBox.isSelected()) {
-                    int qty = Integer.parseInt(cakeQty.getText());
+                if (sari.isSelected()) {
+                    int qty = Integer.parseInt(sariqty.getText());
                     total += qty * 6;
                     receipt.append("Cake x").append(qty).append(" - $").append(qty * 6).append("\n");
                 }
-                if (iceTeaBox.isSelected()) {
-                    int qty = Integer.parseInt(iceTeaQty.getText());
+                if (suit.isSelected()) {
+                    int qty = Integer.parseInt(suitqty.getText());
                     total += qty * 3;
                     receipt.append("Ice Tea x").append(qty).append(" - $").append(qty * 3).append("\n");
                 }
@@ -326,17 +329,17 @@ public class Main extends JFrame implements ActionListener {
             });
         
             resetButton.addActionListener(ev -> {
-                coffeeBox.setSelected(false);
-                teaBox.setSelected(false);
-                sandwichBox.setSelected(false);
-                cakeBox.setSelected(false);
-                iceTeaBox.setSelected(false);
+                frocks.setSelected(false);
+                kurti.setSelected(false);
+                maxi.setSelected(false);
+                sari.setSelected(false);
+                sari.setSelected(false);
         
-                coffeeQty.setText("0");
-                teaQty.setText("0");
-                sandwichQty.setText("0");
-                cakeQty.setText("0");
-                iceTeaQty.setText("0");
+                frockqty.setText("0");
+                kurtiqty.setText("0");
+                maxiqty.setText("0");
+                sariqty.setText("0");
+                suitqty.setText("0");
         
                 totalLabel.setText("Total: $0.00");
                 receiptArea.setText("");
@@ -379,6 +382,9 @@ public class Main extends JFrame implements ActionListener {
                 GridBagConstraints empGbc = new GridBagConstraints();
                 empGbc.insets = new Insets(10, 10, 10, 10);
 
+                // List to store employee data
+                   List<String> employeeDataList = new ArrayList<>();
+
                 // Add Button
                 JButton addButton = new JButton("Add");
                 addButton.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -394,9 +400,32 @@ public class Main extends JFrame implements ActionListener {
                  empGbc.gridy = 1;
                  employeePanel.add(viewButton, empGbc);
 
+                 // Add ActionListener to View button
+                   viewButton.addActionListener(ev -> {
+                   JFrame viewEmployeeFrame = new JFrame("View Employees");
+                   viewEmployeeFrame.setSize(500, 400);
+                  viewEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                   JPanel viewPanel = new JPanel();
+                   viewPanel.setLayout(new BorderLayout());
+
+                 // Display employee data
+                   JTextArea employeeTextArea = new JTextArea();
+                   employeeTextArea.setEditable(false);
+                   for (String emp : employeeDataList) {
+                   employeeTextArea.append(emp + "\n");
+            }
+
+            JScrollPane scrollPane = new JScrollPane(employeeTextArea);
+            viewPanel.add(scrollPane, BorderLayout.CENTER);
+
+            viewEmployeeFrame.add(viewPanel);
+            viewEmployeeFrame.setVisible(true);
+        });
+
                  // Add ActionListener to Add button
                  addButton.addActionListener(ev -> {
-                    // Open a new frame for adding employee details
+                    
                     JFrame addEmployeeFrame = new JFrame("Add Employee");
                     addEmployeeFrame.setSize(500, 400);
                     addEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -466,13 +495,12 @@ public class Main extends JFrame implements ActionListener {
                     String salary = salaryField.getText();
                     String address = addressField.getText();
 
+                    // Save employee data to the list
+                        employeeDataList.add("Name: " +  name + ", Contact: " +  contact + ", Designation: " +  designation
+                        + ", Salary: " +  salary + ", Address: " +  address);
+
                     // You can process or save the data here
-                    JOptionPane.showMessageDialog(addEmployeeFrame,
-                            "Employee Added:\nName: " + name +
-                            "\nContact: " + contact +
-                            "\nDesignation: " + designation +
-                            "\nSalary: " + salary +
-                            "\nAddress: " + address);
+                    JOptionPane.showMessageDialog(addEmployeeButton, "Data saved successfully!");
 
                     // Clear fields after adding
                     nameField.setText("");
@@ -486,7 +514,7 @@ public class Main extends JFrame implements ActionListener {
                     addEmployeeFrame.setVisible(true);
                 });
 
-            // Add employeePanel to employeeFrame
+            // Add employeePanel to employeeFrame                                                                                                                                                                                                                                                                                                                                                                       
             employeeFrame.add(employeePanel, BorderLayout.CENTER);
             employeeFrame.setVisible(true);
 
