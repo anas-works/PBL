@@ -207,8 +207,8 @@ public class LoginForm extends JFrame implements ActionListener {
 
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                LoginForm loginForm = new LoginForm();
                 dispose();
+                LoginForm loginForm = new LoginForm();
             }
         });
 
