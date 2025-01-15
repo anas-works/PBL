@@ -1,16 +1,17 @@
 import java.sql.*;
 
 public class DataBase {
+    public final String URL = "jdbc:mysql://localhost:3306/my_boutiquee"; // Your database URL
+    public final String USERNAME = "root";  // Your database username
+    public final String PASSWORD = "";  // Your database password
+    
     public String username;
     public String password;
+    
 
     
     public boolean verifyUser(String username, String password){
         boolean isValid = false;
-
-        final String URL = "jdbc:mysql://localhost:3306/my_boutiquee"; // Your database URL
-        final String USERNAME = "root";  // Your database username
-        final String PASSWORD = "";  // Your database password
 
         try {
             Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
@@ -44,9 +45,6 @@ public class DataBase {
 
 
     public void insertUser(String username, String password) {
-        final String URL = "jdbc:mysql://localhost:3306/my_boutiquee";
-        final String USERNAME = "root";
-        final String PASSWORD = "";  // Database password
     
         try {
             // Establish the connection
