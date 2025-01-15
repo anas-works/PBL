@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 public class LoginForm extends JFrame implements ActionListener {
 
+    private DataBase user = new DataBase();
+
     private Container container;
     private JLabel userLabel, passwordLabel, titleLabel;
     private JTextField userTextField;
@@ -97,6 +99,7 @@ public class LoginForm extends JFrame implements ActionListener {
 
         signUpButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 signUp();
             }
         });
@@ -106,11 +109,9 @@ public class LoginForm extends JFrame implements ActionListener {
                 String userText = userTextField.getText();
                 String pwdText = new String(passwordField.getPassword());
 
-                DataBase user = new DataBase();
-                user.getAuthenticatedUser(userText,pwdText);
-
-                if (userText == user.username & pwdText == user.password){
-                    menu(user);
+                
+                if (user.verifyUser(userText, pwdText)){
+                    menu();
                     dispose();
                 }else{
                     JOptionPane.showMessageDialog(loginButton, "Invalid Username or Password");
@@ -125,30 +126,32 @@ public class LoginForm extends JFrame implements ActionListener {
 
     void signUp(){
         JFrame frame = new JFrame("Sign Up");
-        frame.setSize(600, 500);
+        frame. setBounds(300, 90, 900, 600);   
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JPanel titlePanel = new JPanel();
-        titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
-        JLabel titleLabel = new JLabel("SIGNUP PAGE");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titlePanel.add(titleLabel);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-         gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        JLabel titleLabel = new JLabel("SIGNUP PAGE");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(titleLabel, gbc);
 
         JLabel usernameLabel1 = new JLabel("Username:");
         usernameLabel1.setFont(new Font("Arial", Font.BOLD, 18)); 
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.LINE_END;
         panel.add(usernameLabel1, gbc);
 
         JTextField usernameField1 = new JTextField(15);
         usernameField1.setFont(new Font("Arial", Font.PLAIN, 18)); 
         gbc.gridx = 1;
+        gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.LINE_START;
         panel.add(usernameField1, gbc);
 
@@ -156,72 +159,66 @@ public class LoginForm extends JFrame implements ActionListener {
         JLabel passwordLabel1 = new JLabel("Password:");
         passwordLabel1.setFont(new Font("Arial", Font.BOLD, 18)); 
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.LINE_END;
         panel.add(passwordLabel1, gbc);
     
         JPasswordField passwordField1 = new JPasswordField(15);
         passwordField1.setFont(new Font("Arial", Font.BOLD, 18)); 
         gbc.gridx = 1;
+        gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.LINE_START;
         panel.add(passwordField1, gbc);
 
-        // Add confirm password label and field
-        JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
-        confirmPasswordLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.LINE_END;
-        panel.add(confirmPasswordLabel, gbc);
-
-         JPasswordField confirmPasswordField = new JPasswordField(15);
-        confirmPasswordField.setFont(new Font("Arial", Font.PLAIN, 16));
-        gbc.gridx = 1;
-        gbc.anchor = GridBagConstraints.LINE_START;
-        panel.add(confirmPasswordField, gbc);
-
         // Add the create account button
         JButton createAccountButton = new JButton("Create Account");
-        createAccountButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        createAccountButton.setFont(new Font("Arial", Font.PLAIN, 18));
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(createAccountButton, gbc);
 
+        JButton returnButton = new JButton("Return login");
+        returnButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(returnButton, gbc);
+
        
         
         createAccountButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String userText = usernameField1.getText();
-                String pwdText = new String(passwordField1.getPassword());
-                String confPwd = new String(confirmPasswordField.getPassword());
- 
-                DataBase user = new DataBase();
+                String psdText = new String(passwordField1.getPassword());
                 
-                if (pwdText == confPwd) {
-                    if (userText.isEmpty() || pwdText.isEmpty()) {
-                        JOptionPane.showMessageDialog(frame, "Both fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Account Created Successfully");
-                        usernameField1.setText("");
-                        passwordField1.setText("");
-                    }
+                if (userText.isEmpty() & psdText.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Both fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
                 }else{
-                    JOptionPane.showMessageDialog(frame, "Password not same");
+                    user.insertUser(userText, psdText);
+                    JOptionPane.showMessageDialog(frame, "Account Created Successfully");
+                    LoginForm loginForm = new LoginForm();
+                    dispose();
                 }
             }
         });
 
-        frame.add(titlePanel, BorderLayout.NORTH);
+        returnButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                LoginForm loginForm = new LoginForm();
+                dispose();
+            }
+        });
+
         frame.add(panel,BorderLayout.CENTER);
-        
         frame.setVisible(true);
     }
 
 
 
-    void menu(DataBase user){
+    void menu(){
         JFrame j = new JFrame("home Page");
         j.setSize(900, 600);
 
