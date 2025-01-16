@@ -20,9 +20,12 @@ public class LoginForm extends JFrame implements ActionListener {
         setTitle("Login Page");
         setBounds(300, 90, 900, 600);   
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+ 
+        
         container = getContentPane();
-        container.setLayout(null);
+        container.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Padding between components
 
         titleLabel = new JLabel("Boutique Management System");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
@@ -199,7 +202,7 @@ public class LoginForm extends JFrame implements ActionListener {
                 }else{
                     user.insertUser(userText, psdText);
                     JOptionPane.showMessageDialog(frame, "Account Created Successfully");
-                    LoginForm loginForm = new LoginForm();
+                     new LoginForm();
                     dispose();
                 }
             }
@@ -207,7 +210,7 @@ public class LoginForm extends JFrame implements ActionListener {
 
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                LoginForm loginForm = new LoginForm();
+                 new LoginForm();
                 dispose();
             }
         });
