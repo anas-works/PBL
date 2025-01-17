@@ -19,66 +19,79 @@ public class LoginForm extends JFrame{
         setTitle("Login Page");
         setBounds(300, 90, 900, 600);   
         setDefaultCloseOperation(EXIT_ON_CLOSE);
- 
-        
+
         container = getContentPane();
         container.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Padding between components
-
+        gbc.insets = new Insets(0, 10, 30, 10);
+        
+        gbc.anchor = GridBagConstraints.CENTER;
+        
         titleLabel = new JLabel("Boutique Management System");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        titleLabel.setSize(500, 30);
-        titleLabel.setLocation(250, 30);
-        container.add(titleLabel);
-
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 3;
+        container.add(titleLabel, gbc);
+        
+        gbc.insets = new Insets(40, 140, 10, 0);
         userLabel = new JLabel("Username");
         userLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        userLabel.setSize(100, 20);
-        userLabel.setLocation(250, 150);
-        container.add(userLabel);
-
-        userTextField = new JTextField();
-        userTextField.setFont(new Font("Arial", Font.PLAIN, 15));
-        userTextField.setSize(190, 30);
-        userTextField.setLocation(400, 150);
-        container.add(userTextField);
-
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        container.add(userLabel, gbc);
+        
+        gbc.insets = new Insets(40, 10, 10, 0);
+        userTextField = new JTextField(21);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        container.add(userTextField , gbc);
+        
+        gbc.insets = new Insets(10, 140, 10, 0);
         passwordLabel = new JLabel("Password");
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        passwordLabel.setSize(100, 20);
-        passwordLabel.setLocation(250, 220);
-        container.add(passwordLabel);
-
-        passwordField = new JPasswordField();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        container.add(passwordLabel, gbc);
+        
+        gbc.insets = new Insets(10, 10, 10, 0);
+        passwordField = new JPasswordField(16);
         passwordField.setFont(new Font("Arial", Font.PLAIN, 15));
-        passwordField.setSize(190, 30);
-        passwordField.setLocation(400, 220);
-        container.add(passwordField);
-
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        container.add(passwordField, gbc);
+        
+        gbc.insets = new Insets(0, 150, 0, 0);
         showPassword = new JCheckBox("Show Password");
         showPassword.setFont(new Font("Arial", Font.PLAIN, 15));
-        showPassword.setSize(150, 20);
-        showPassword.setLocation(400, 250);
-        container.add(showPassword);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        container.add(showPassword, gbc);
 
+        gbc.insets = new Insets(40, 10, 40, 50);
         loginButton = new JButton("Login");
         loginButton.setFont(new Font("Arial", Font.PLAIN, 15));
-        loginButton.setSize(100, 20);
-        loginButton.setLocation(300, 300);
-        container.add(loginButton);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
+        container.add(loginButton, gbc);
 
         resetButton = new JButton("Reset");
         resetButton.setFont(new Font("Arial", Font.PLAIN, 15));
-        resetButton.setSize(100, 20);
-        resetButton.setLocation(450, 300);
-        container.add(resetButton);
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        container.add(resetButton, gbc);
         
         signUpButton = new JButton("Sign Up");
         signUpButton.setFont(new Font("Arial", Font.PLAIN, 15));
-        signUpButton.setSize(100, 20);
-        signUpButton.setLocation(600, 300);
-        container.add(signUpButton);
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        container.add(signUpButton, gbc);
 
 
         resetButton.addActionListener(new ActionListener() {
@@ -201,20 +214,16 @@ public class LoginForm extends JFrame{
                 }else{
                     user.insertUser(userText, psdText);
                     JOptionPane.showMessageDialog(frame, "Account Created Successfully");
-                     new LoginForm();
-                    dispose();
-                    LoginForm loginForm = new LoginForm();
                     frame.dispose();
+                    new LoginForm();
                 }
             }
         });
 
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                 new LoginForm();
-                dispose();
-                LoginForm loginForm = new LoginForm();
                 frame.dispose();
+                new LoginForm();
             }
         });
 
@@ -293,7 +302,7 @@ public class LoginForm extends JFrame{
         returnBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 j.dispose();
-                LoginForm login = new LoginForm();
+                new LoginForm();
             }
         });
 
@@ -316,30 +325,31 @@ public class LoginForm extends JFrame{
 
         titleLabel = new JLabel("Boutique Management System");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        titleLabel.setSize(500, 30);
-        titleLabel.setLocation(250, 10);
-        employeeFrame.add(titleLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        employeePanel.add(titleLabel , gbc);
 
         // Add Button
         JButton addButton = new JButton("Add");
         addButton.setFont(new Font("Arial", Font.PLAIN, 18));
         addButton.setPreferredSize(new Dimension(150, 40));
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 2;
         employeePanel.add(addButton, gbc);
 
         // View Button
         JButton viewButton = new JButton("View");
         viewButton.setFont(new Font("Arial", Font.PLAIN, 18));
         viewButton.setPreferredSize(new Dimension(150, 40));
-        gbc.gridy = 1;
+        gbc.gridy = 3;
         employeePanel.add(viewButton, gbc);
          
         // View Button
         JButton returnBtn = new JButton("Return");
         returnBtn.setFont(new Font("Arial", Font.PLAIN, 18));
         returnBtn.setPreferredSize(new Dimension(150, 40));
-        gbc.gridy = 2;
+        gbc.gridy = 4;
         employeePanel.add(returnBtn, gbc);
 
         viewButton.addActionListener(new ActionListener() {
@@ -383,10 +393,10 @@ public class LoginForm extends JFrame{
 
         titleLabel = new JLabel("Boutique Management System");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        titleLabel.setSize(500, 30);
-        titleLabel.setLocation(250, 10);
-        gbc.gridy = 1;
-        p.add(titleLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        p.add(titleLabel , gbc);
 
 
         JButton returnBtn = new JButton("Return");
@@ -420,13 +430,14 @@ public class LoginForm extends JFrame{
 
         titleLabel = new JLabel("Boutique Management System");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        titleLabel.setSize(500, 30);
-        titleLabel.setLocation(250, 10);
-        addEmployeeFrame.add(titleLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        addPanel.add(titleLabel , gbc);
 
         // Employee Name
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         addPanel.add(new JLabel("Employee Name:"), gbc);
 
         gbc.gridx = 1;
@@ -435,7 +446,7 @@ public class LoginForm extends JFrame{
 
         // Contact No
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         addPanel.add(new JLabel("Contact No:"), gbc);
 
         gbc.gridx = 1;
@@ -444,7 +455,7 @@ public class LoginForm extends JFrame{
 
         // Designation
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         addPanel.add(new JLabel("Designation:"), gbc);
 
         gbc.gridx = 1;
@@ -453,7 +464,7 @@ public class LoginForm extends JFrame{
 
         // Salary
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         addPanel.add(new JLabel("Salary:"), gbc);
 
         gbc.gridx = 1;
@@ -462,7 +473,7 @@ public class LoginForm extends JFrame{
 
         // Address
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         addPanel.add(new JLabel("Address:"), gbc);
 
         gbc.gridx = 1;
@@ -471,15 +482,14 @@ public class LoginForm extends JFrame{
 
         // Add Button
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.gridwidth = 2;
         JButton addEmployeeButton = new JButton("Add");
         addPanel.add(addEmployeeButton, gbc);
 
         JButton returnBtn = new JButton("Return");
-        returnBtn.setFont(new Font("Arial", Font.PLAIN, 18));
-        returnBtn.setPreferredSize(new Dimension(150, 40));
-        gbc.gridy = 8;
+        returnBtn.setFont(new Font("Arial", Font.PLAIN, 15));
+        gbc.gridy = 9;
         gbc.gridx = 4;
         addPanel.add(returnBtn, gbc);
 
@@ -498,16 +508,14 @@ public class LoginForm extends JFrame{
                 String designation = designationField.getText();
                 String salary = salaryField.getText();
                 String address = addressField.getText();
-        
-                // You can process or save the data here
-                JOptionPane.showMessageDialog(addEmployeeButton, "Data saved successfully!");
-        
-                // Clear fields after adding
-                nameField.setText("");
-                contactField.setText("");
-                designationField.setText("");
-                salaryField.setText("");
-                addressField.setText("");
+                
+                if (name.isEmpty() & contact.isEmpty() & designation.isEmpty() & salary.isEmpty() & address.isEmpty()) {
+                    JOptionPane.showMessageDialog(addEmployeeFrame, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    Employee employee = new Employee();
+                    employee.addEmployee(name, 0, address, designation, 0);
+                    JOptionPane.showMessageDialog(addEmployeeFrame, "Employee Added Successfully");
+                }
             }  
         });
         

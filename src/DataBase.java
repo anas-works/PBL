@@ -7,6 +7,11 @@ public class DataBase {
     
     public String username;
     public String password;
+    public String name;
+    public int contact;
+    public String address;
+    public String designation;
+    public int salary;
     
 
     
@@ -64,6 +69,40 @@ public class DataBase {
             // Check if the insert was successful
             if (rowsAffected > 0) {
                 System.out.println("User inserted successfully!");
+            }
+    
+            preparedStatement.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Database connection failed or insert failed.");
+            e.printStackTrace();
+        }
+    }
+
+
+    public void insertEmployee(String name, int contact, String address, String designation, int salary) {
+    
+        try {
+            // Establish the connection
+            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    
+            // Create SQL query to insert a new user
+            String sql = "INSERT INTO employee (name, contact, address, designation, salary) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+    
+            // Set the parameters for username and password
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, contact);
+            preparedStatement.setString(1, address);
+            preparedStatement.setString(1, designation);
+            preparedStatement.setInt(2, salary);
+    
+            // Execute the insert query
+            int rowsAffected = preparedStatement.executeUpdate();
+    
+            // Check if the insert was successful
+            if (rowsAffected > 0) {
+                System.out.println("Employee inserted successfully!");
             }
     
             preparedStatement.close();
