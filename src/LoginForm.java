@@ -306,12 +306,132 @@ public class LoginForm extends JFrame{
             }
         });
 
+        Reciept.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                j.dispose();
+                recieptPanel();
+            }
+        });
+
 
 
         j.add(panel,BorderLayout.CENTER);
         j.setVisible(true);
     }
 
+    void recieptPanel(){
+        // Create the main frame
+        JFrame frame = new JFrame("Boutique Management System");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(700, 500);
+
+        // Create the main panel with GridLayout
+        frame.setLayout(new GridLayout(1, 2, 30, 0)); 
+
+        // Left panel for customer details and buttons
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new GridBagLayout()); 
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5); 
+
+        // Customer name and text field
+        JLabel nameLabel = new JLabel("Customer Name:");
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        JTextField nameField = new JTextField();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        leftPanel.add(nameLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridwidth = 2; 
+        gbc.weightx = 1.0; 
+        gbc.weighty = 0.3; 
+        leftPanel.add(nameField, gbc);
+
+        // Contact label and text field
+        JLabel contactLabel = new JLabel("Contact:");
+        contactLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        JTextField contactField = new JTextField();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        leftPanel.add(contactLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridwidth = 2; 
+        gbc.weighty = 0.3; 
+        leftPanel.add(contactField, gbc);
+
+        // Empty space to push buttons lower
+        gbc.gridy = 2;
+        leftPanel.add(new JLabel(" "), gbc);
+
+        // Buttons panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridBagLayout());
+        GridBagConstraints buttonGBC = new GridBagConstraints();
+        buttonGBC.fill = GridBagConstraints.HORIZONTAL;
+        
+        JButton submitButton = new JButton("Submit");
+        JButton returnButton = new JButton("Return");
+
+        // Add a little more space for buttons to appear smaller and lower
+        buttonGBC.gridx = 0;
+        buttonGBC.gridy = 0;
+        buttonGBC.insets = new Insets(10, 5, 5, 5); 
+        buttonPanel.add(submitButton, buttonGBC);
+
+        buttonGBC.gridy = 1;
+        buttonPanel.add(returnButton, buttonGBC);
+
+        gbc.gridy = 3;
+        gbc.gridwidth = 2; // Span both columns for button panel
+        leftPanel.add(buttonPanel, gbc);
+
+        // Right panel for items and total
+        JPanel rightPanel = new JPanel(new GridLayout(11, 1, 0, 15)); 
+
+        // Item label
+        JLabel itemLabel = new JLabel("Item", JLabel.CENTER);
+        itemLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        rightPanel.add(itemLabel);
+
+        // Checkboxes for items with text fields
+        JCheckBox[] itemCheckBoxes = new JCheckBox[8];
+        JTextField[] itemFields = new JTextField[8];
+        for (int i = 0; i < 8; i++) {
+            JPanel itemPanel = new JPanel(new GridLayout(1, 2)); 
+            itemCheckBoxes[i] = new JCheckBox("Item" + (i + 1));
+            itemCheckBoxes[i].setFont(new Font("Arial", Font.PLAIN, 14));
+            itemFields[i] = new JTextField();
+            itemPanel.add(itemCheckBoxes[i]);
+            itemPanel.add(itemFields[i]);
+            rightPanel.add(itemPanel);
+        }
+
+        // Total label
+        JLabel totalLabel = new JLabel("Total $ = 0", JLabel.CENTER);
+        totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        rightPanel.add(new JLabel()); // Placeholder
+        rightPanel.add(totalLabel);
+
+        // return button action listener
+        returnButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                frame.dispose();
+                new LoginForm();
+            }
+        });
+
+        
+        // Add panels to the frame
+        frame.add(leftPanel);
+        frame.add(rightPanel);
+
+
+        // Make the frame visible
+        frame.setVisible(true);
+    }
 
     void employeePanel(){
         JFrame employeeFrame = new JFrame("Employee Info");
@@ -345,7 +465,7 @@ public class LoginForm extends JFrame{
         gbc.gridy = 3;
         employeePanel.add(viewButton, gbc);
          
-        // View Button
+        // return Button
         JButton returnBtn = new JButton("Return");
         returnBtn.setFont(new Font("Arial", Font.PLAIN, 18));
         returnBtn.setPreferredSize(new Dimension(150, 40));
