@@ -662,12 +662,10 @@ public class LoginForm extends JFrame{
                 submit();
             }
         });
-
         
         // Add panels to the frame
         frame.add(leftPanel);
         frame.add(rightPanel);
-
 
         // Make the frame visible
         frame.setVisible(true);
