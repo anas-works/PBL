@@ -313,6 +313,13 @@ public class LoginForm extends JFrame{
             }
         });
 
+        transact.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                j.dispose();
+                transaction();
+            }
+        });
+
 
 
         j.add(panel,BorderLayout.CENTER);
@@ -543,10 +550,7 @@ public class LoginForm extends JFrame{
         addEmployeeFrame.add(addPanel, BorderLayout.CENTER);
         addEmployeeFrame.setVisible(true);
     }
-
-
-
-    
+ 
     void recieptPanel(){
         // Create the main frame
         JFrame frame = new JFrame("Boutique Management System");
@@ -651,6 +655,14 @@ public class LoginForm extends JFrame{
             }
         });
 
+        // submit button action listener
+        submitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                dispose();
+                submit();
+            }
+        });
+
         
         // Add panels to the frame
         frame.add(leftPanel);
@@ -659,6 +671,75 @@ public class LoginForm extends JFrame{
 
         // Make the frame visible
         frame.setVisible(true);
+    }
+
+    void submit (){
+
+        JFrame f = new JFrame("Submit");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(400, 300);
+
+         //add panel
+         JPanel panel = new JPanel();
+         panel.setLayout(new BorderLayout());
+         f.add(panel);
+
+         // Create a display area
+        JTextArea displayArea = new JTextArea(350, 250); 
+        displayArea.setEditable(false);
+
+        //adding scrollpanel to display area
+        JScrollPane scroll = new JScrollPane(displayArea);
+
+        panel.add(scroll);
+        f.setVisible(true);
+
+        //return button
+        JButton returnBtn = new JButton("Return");
+        returnBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+        returnBtn.setPreferredSize(new Dimension(150, 40));
+        panel.add(returnBtn,BorderLayout.SOUTH);  // add button to the bottom
+
+        returnBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                f.dispose();
+                menu();
+            }
+        });
+    }
+
+    void transaction(){
+        JFrame f = new JFrame("Transaction");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(400, 300);
+
+         //add panel
+         JPanel panel = new JPanel();
+         panel.setLayout(new BorderLayout());
+         f.add(panel);
+
+         // Create a display area
+        JTextArea displayArea = new JTextArea(350, 250); 
+        displayArea.setEditable(false);
+
+        //adding scrollpanel to display area
+        JScrollPane scroll = new JScrollPane(displayArea);
+
+        panel.add(scroll);
+        f.setVisible(true);
+
+        //return button
+        JButton returnBtn = new JButton("Return");
+        returnBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+        returnBtn.setPreferredSize(new Dimension(150, 40));
+        panel.add(returnBtn,BorderLayout.SOUTH);  // add button to the bottom
+
+        returnBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                f.dispose();
+                menu();
+            }
+        });
     }
 
 }
