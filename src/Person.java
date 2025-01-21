@@ -1,6 +1,6 @@
 public class Person {
-    protected String name;
-    protected int conatct;
-    protected String address;
+    public String name;
+    public long conatct;
+    public String address;
 
 }

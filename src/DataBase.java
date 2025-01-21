@@ -13,15 +13,13 @@ public class DataBase {
     public String designation;
     public int salary;
     
-
     
     public boolean verifyUser(String username, String password){
         boolean isValid = false;
-
+        
         try {
-            Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
             // connection succeeded
-
+            Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
             
             String sql = "SELECT * FROM login WHERE username=? AND password=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -31,16 +29,12 @@ public class DataBase {
             // Execute the query
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            // If a matching row is found, it means the credentials are valid
             if (resultSet.next()) {
-                isValid = true;  // Credentials are valid
+                isValid = true;
             }
 
-            // Clean up
             preparedStatement.close();
             conn.close();
-
-
 
         } catch (Exception e) {
             System.out.println("Database connection failed");
@@ -80,7 +74,7 @@ public class DataBase {
     }
 
 
-    public void insertEmployee(String name, int contact, String address, String designation, int salary) {
+    public void insertEmployee(String name, long contact, String address, String designation, long salary) {
     
         try {
             // Establish the connection
@@ -90,12 +84,11 @@ public class DataBase {
             String sql = "INSERT INTO employee (name, contact, address, designation, salary) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
     
-            // Set the parameters for username and password
             preparedStatement.setString(1, name);
-            preparedStatement.setInt(2, contact);
-            preparedStatement.setString(1, address);
-            preparedStatement.setString(1, designation);
-            preparedStatement.setInt(2, salary);
+            preparedStatement.setLong(2, contact);
+            preparedStatement.setString(3, address);
+            preparedStatement.setString(4, designation);
+            preparedStatement.setLong(5, salary);
     
             // Execute the insert query
             int rowsAffected = preparedStatement.executeUpdate();

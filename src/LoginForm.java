@@ -299,17 +299,17 @@ public class LoginForm extends JFrame{
             }
         });
 
-        returnBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                j.dispose();
-                new LoginForm();
-            }
-        });
-
         Reciept.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 j.dispose();
                 recieptPanel();
+            }
+        });
+
+        returnBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                j.dispose();
+                new LoginForm();
             }
         });
 
@@ -319,6 +319,234 @@ public class LoginForm extends JFrame{
         j.setVisible(true);
     }
 
+
+    void employeePanel(){
+        JFrame employeeFrame = new JFrame("Employee Info");
+        employeeFrame.setBounds(300, 90, 900, 600);   
+        employeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+
+        JPanel employeePanel = new JPanel();
+        employeePanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        titleLabel = new JLabel("Boutique Management System");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        employeePanel.add(titleLabel , gbc);
+
+        // Add Button
+        JButton addButton = new JButton("Add");
+        addButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        addButton.setPreferredSize(new Dimension(150, 40));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        employeePanel.add(addButton, gbc);
+
+        // View Button
+        JButton viewButton = new JButton("View");
+        viewButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        viewButton.setPreferredSize(new Dimension(150, 40));
+        gbc.gridy = 3;
+        employeePanel.add(viewButton, gbc);
+         
+        // View Button
+        JButton returnBtn = new JButton("Return");
+        returnBtn.setFont(new Font("Arial", Font.PLAIN, 18));
+        returnBtn.setPreferredSize(new Dimension(150, 40));
+        gbc.gridy = 4;
+        employeePanel.add(returnBtn, gbc);
+
+        viewButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e){
+            employeeFrame.dispose();
+            viewEmployee();
+        }
+        });
+
+        addButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e){
+            employeeFrame.dispose();
+            addEmployee();
+        }
+        });
+
+        returnBtn.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e){
+            employeeFrame.dispose();
+            menu();
+        }
+        });
+
+
+            // Add employeePanel to employeeFrame                                                                                                                                                                                                                                                                                                                                                                       
+        employeeFrame.add(employeePanel, BorderLayout.CENTER);
+        employeeFrame.setVisible(true);
+                  
+    }
+
+
+    void viewEmployee(){
+        JFrame viewEmployeeFrame = new JFrame("View Employees");
+        viewEmployeeFrame.setBounds(300, 90, 900, 600);   
+        viewEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel p = new JPanel();
+        p.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        titleLabel = new JLabel("Boutique Management System");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        p.add(titleLabel , gbc);
+
+
+        JButton returnBtn = new JButton("Return");
+        returnBtn.setFont(new Font("Arial", Font.PLAIN, 18));
+        returnBtn.setPreferredSize(new Dimension(150, 40));
+        gbc.gridy = 2;
+        p.add(returnBtn, gbc);
+
+        returnBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                viewEmployeeFrame.dispose();
+                employeePanel();
+            }
+        });
+
+
+        viewEmployeeFrame.add(p,BorderLayout.CENTER);
+        viewEmployeeFrame.setVisible(true);
+    }
+
+
+    void addEmployee(){      
+        JFrame addEmployeeFrame = new JFrame("Add Employee");
+        addEmployeeFrame.setBounds(300, 90, 900, 600);   
+        addEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel addPanel = new JPanel();
+        addPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        titleLabel = new JLabel("Boutique Management System");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        addPanel.add(titleLabel , gbc);
+        
+        // Employee Name
+        JLabel name = new JLabel("Employee Name:");
+        name.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        addPanel.add(name, gbc);
+        
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+        JTextField nameField = new JTextField(15);
+        addPanel.add(nameField, gbc);
+
+        // Contact No
+        JLabel contactNo = new JLabel("Contact No:");
+        contactNo.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        addPanel.add(contactNo, gbc);
+
+        gbc.gridx = 1;
+        JTextField contactField = new JTextField(15);
+        addPanel.add(contactField, gbc);
+
+        // Designation
+        JLabel designationLabel = new JLabel("Designation:");
+        designationLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        addPanel.add(designationLabel, gbc);
+
+        gbc.gridx = 1;
+        JTextField designationField = new JTextField(15);
+        addPanel.add(designationField, gbc);
+
+        // Salary
+        JLabel salaryLabel = new JLabel("Salary:");
+        salaryLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        addPanel.add(salaryLabel, gbc);
+
+        gbc.gridx = 1;
+        JTextField salaryField = new JTextField(15);
+        addPanel.add(salaryField, gbc);
+
+        // Address
+        JLabel adressLabel = new JLabel("Address:");
+        adressLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        addPanel.add(adressLabel, gbc);
+
+        gbc.gridx = 1;
+        JTextField addressField = new JTextField(15);
+        addPanel.add(addressField, gbc);
+
+        // Add Button
+        JButton addEmployeeButton = new JButton("Add");
+        addEmployeeButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        addPanel.add(addEmployeeButton, gbc);
+
+        JButton returnBtn = new JButton("Return");
+        returnBtn.setFont(new Font("Arial", Font.PLAIN, 20));
+        gbc.gridy = 9;
+        gbc.gridx = 0;
+        addPanel.add(returnBtn, gbc);
+
+        returnBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                addEmployeeFrame.dispose();
+                employeePanel();
+            }
+        });
+
+        // ActionListener for Add Employee Button
+        addEmployeeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                String name = nameField.getText();
+                String designation = designationField.getText();
+                String address = addressField.getText();
+                
+                if (name.isEmpty() & contactField.getText().isEmpty() & designation.isEmpty() & salaryField.getText().isEmpty() & address.isEmpty()) {
+                    JOptionPane.showMessageDialog(addEmployeeFrame, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    long contact = Integer.parseInt(contactField.getText());
+                    long salary = Integer.parseInt(salaryField.getText());
+
+                    Employee employee = new Employee();
+                    employee.addEmployee(name, contact, address, designation, salary);
+                    JOptionPane.showMessageDialog(addEmployeeFrame, "Employee Added Successfully");
+                }
+            }  
+        });
+        
+        addEmployeeFrame.add(addPanel, BorderLayout.CENTER);
+        addEmployeeFrame.setVisible(true);
+    }
+
+
+
+    
     void recieptPanel(){
         // Create the main frame
         JFrame frame = new JFrame("Boutique Management System");
@@ -419,7 +647,7 @@ public class LoginForm extends JFrame{
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 frame.dispose();
-                new LoginForm();
+                menu();
             }
         });
 
@@ -432,216 +660,5 @@ public class LoginForm extends JFrame{
         // Make the frame visible
         frame.setVisible(true);
     }
-
-    void employeePanel(){
-        JFrame employeeFrame = new JFrame("Employee Info");
-        employeeFrame.setBounds(300, 90, 900, 600);   
-        employeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-
-        JPanel employeePanel = new JPanel();
-        employeePanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-
-        titleLabel = new JLabel("Boutique Management System");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        employeePanel.add(titleLabel , gbc);
-
-        // Add Button
-        JButton addButton = new JButton("Add");
-        addButton.setFont(new Font("Arial", Font.PLAIN, 18));
-        addButton.setPreferredSize(new Dimension(150, 40));
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        employeePanel.add(addButton, gbc);
-
-        // View Button
-        JButton viewButton = new JButton("View");
-        viewButton.setFont(new Font("Arial", Font.PLAIN, 18));
-        viewButton.setPreferredSize(new Dimension(150, 40));
-        gbc.gridy = 3;
-        employeePanel.add(viewButton, gbc);
-         
-        // return Button
-        JButton returnBtn = new JButton("Return");
-        returnBtn.setFont(new Font("Arial", Font.PLAIN, 18));
-        returnBtn.setPreferredSize(new Dimension(150, 40));
-        gbc.gridy = 4;
-        employeePanel.add(returnBtn, gbc);
-
-        viewButton.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e){
-            employeeFrame.dispose();
-            viewEmployee();
-        }
-        });
-
-        addButton.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e){
-            employeeFrame.dispose();
-            addEmployee();
-        }
-        });
-
-        returnBtn.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e){
-            employeeFrame.dispose();
-            menu();
-        }
-        });
-
-
-            // Add employeePanel to employeeFrame                                                                                                                                                                                                                                                                                                                                                                       
-        employeeFrame.add(employeePanel, BorderLayout.CENTER);
-        employeeFrame.setVisible(true);
-                  
-    }
-
-
-    void viewEmployee(){
-        JFrame viewEmployeeFrame = new JFrame("View Employees");
-        viewEmployeeFrame.setBounds(300, 90, 900, 600);   
-        viewEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        JPanel p = new JPanel();
-        p.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-
-        titleLabel = new JLabel("Boutique Management System");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        p.add(titleLabel , gbc);
-
-
-        JButton returnBtn = new JButton("Return");
-        returnBtn.setFont(new Font("Arial", Font.PLAIN, 18));
-        returnBtn.setPreferredSize(new Dimension(150, 40));
-        gbc.gridy = 2;
-        p.add(returnBtn, gbc);
-
-        returnBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                viewEmployeeFrame.dispose();
-                employeePanel();
-            }
-        });
-
-
-        viewEmployeeFrame.add(p,BorderLayout.CENTER);
-        viewEmployeeFrame.setVisible(true);
-    }
-
-
-    void addEmployee(){      
-        JFrame addEmployeeFrame = new JFrame("Add Employee");
-        addEmployeeFrame.setBounds(300, 90, 900, 600);   
-        addEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        JPanel addPanel = new JPanel();
-        addPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-
-        titleLabel = new JLabel("Boutique Management System");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        addPanel.add(titleLabel , gbc);
-
-        // Employee Name
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        addPanel.add(new JLabel("Employee Name:"), gbc);
-
-        gbc.gridx = 1;
-        JTextField nameField = new JTextField(15);
-        addPanel.add(nameField, gbc);
-
-        // Contact No
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        addPanel.add(new JLabel("Contact No:"), gbc);
-
-        gbc.gridx = 1;
-        JTextField contactField = new JTextField(15);
-        addPanel.add(contactField, gbc);
-
-        // Designation
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        addPanel.add(new JLabel("Designation:"), gbc);
-
-        gbc.gridx = 1;
-        JTextField designationField = new JTextField(15);
-        addPanel.add(designationField, gbc);
-
-        // Salary
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        addPanel.add(new JLabel("Salary:"), gbc);
-
-        gbc.gridx = 1;
-        JTextField salaryField = new JTextField(15);
-        addPanel.add(salaryField, gbc);
-
-        // Address
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        addPanel.add(new JLabel("Address:"), gbc);
-
-        gbc.gridx = 1;
-        JTextField addressField = new JTextField(15);
-        addPanel.add(addressField, gbc);
-
-        // Add Button
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        gbc.gridwidth = 2;
-        JButton addEmployeeButton = new JButton("Add");
-        addPanel.add(addEmployeeButton, gbc);
-
-        JButton returnBtn = new JButton("Return");
-        returnBtn.setFont(new Font("Arial", Font.PLAIN, 15));
-        gbc.gridy = 9;
-        gbc.gridx = 4;
-        addPanel.add(returnBtn, gbc);
-
-        returnBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                addEmployeeFrame.dispose();
-                employeePanel();
-            }
-        });
-
-        // ActionListener for Add Employee Button
-        addEmployeeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                String name = nameField.getText();
-                String contact = contactField.getText();
-                String designation = designationField.getText();
-                String salary = salaryField.getText();
-                String address = addressField.getText();
-                
-                if (name.isEmpty() & contact.isEmpty() & designation.isEmpty() & salary.isEmpty() & address.isEmpty()) {
-                    JOptionPane.showMessageDialog(addEmployeeFrame, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
-                }else{
-                    Employee employee = new Employee();
-                    employee.addEmployee(name, 0, address, designation, 0);
-                    JOptionPane.showMessageDialog(addEmployeeFrame, "Employee Added Successfully");
-                }
-            }  
-        });
-        
-        addEmployeeFrame.add(addPanel, BorderLayout.CENTER);
-        addEmployeeFrame.setVisible(true);
-    }
-
 
 }
