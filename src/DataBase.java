@@ -1,17 +1,20 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DataBase {
     public final String URL = "jdbc:mysql://localhost:3306/my_boutiquee"; // Your database URL
     public final String USERNAME = "root";  // Your database username
     public final String PASSWORD = "";  // Your database password
     
-    public String username;
-    public String password;
-    public String name;
-    public int contact;
-    public String address;
-    public String designation;
-    public int salary;
+    private ArrayList<Employee> employees = new ArrayList<>();
+    // public String username;
+    // public String password;
+    // public String name;
+    // public int contact;
+    // public String address;
+    // public String designation;
+    // public int salary;
+    // public int employeeID;
     
     
     public boolean verifyUser(String username, String password){
@@ -75,26 +78,48 @@ public class DataBase {
     
         
         
-    public void selectEmployee(String name, long contact, String address, String designation, long salary){
-            
+    public void selectEmployee(){
         try {
             // connection succeeded
             Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            String sql = "SELECT * FROM employee";  // Replace 'employee' with your table name if needed
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // while (resultSet.next()) {
+            //     this.employeeID = resultSet.getInt("id");
+            //     this.name = resultSet.getString("name");
+            //     this.contact = resultSet.getInt("contact");
+            //     this.address = resultSet.getString("address");
+            //     this.designation = resultSet.getString("designation");
+            //     this.salary = resultSet.getInt("salary");
+                
+            //     System.out.println("id: " + employeeID);
+            //     System.out.println("Name: " + name);
+            //     System.out.println("Contact: " + contact);
+            //     System.out.println("Address: " + address);
+            //     System.out.println("Designation: " + designation);
+            //     System.out.println("Salary: " + salary);
+            //     System.out.println("------------------------------");
+            // }
+
+            // Step 3: Loop through the ResultSet and create Employee objects
+            while (resultSet.next()) {
+                // Create a new Employee object for each row
+                Employee emp = new Employee();
+                
+                // Set the fields of the Employee object
+                emp.setName(resultSet.getString("name"));
+                emp.setContact(resultSet.getInt("contact"));
+                emp.setAddress(resultSet.getString("address"));
+                emp.setDesignation(resultSet.getString("designation"));
+                emp.setSalary(resultSet.getInt("salary"));
+                
+                // Add the Employee object to the ArrayList
+                employees.add(emp);
+            }
             
-            String sql = "SELECT * FROM employee (name, contact, address, designation, salary) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-               
-            preparedStatement.setString(1, name);
-            preparedStatement.setLong(2, contact);
-            preparedStatement.setString(3, address);
-            preparedStatement.setString(4, designation);
-            preparedStatement.setLong(5, salary);
-        
-            // Execute the query
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-    
-            preparedStatement.close();
+            statement.close();
             conn.close();
     
         } catch (Exception e) {
@@ -102,8 +127,13 @@ public class DataBase {
         }
     }
 
+    // Method to get the ArrayList of employees
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
 
-    public void insertEmployee(String name, long contact, String address, String designation, long salary) {
+
+    public void insertEmployee(String name, int contact, String address, String designation, int salary) {
     
         try {
             // Establish the connection

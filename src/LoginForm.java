@@ -404,6 +404,7 @@ public class LoginForm extends JFrame{
 
     void viewEmployee(){
         Employee employee = new Employee();
+
         JFrame viewEmployeeFrame = new JFrame("View Employees");
         viewEmployeeFrame.setBounds(300, 90, 900, 600);   
         viewEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -430,7 +431,7 @@ public class LoginForm extends JFrame{
         
         gbc.gridx = 1;
         gbc.gridwidth = 1;
-        JLabel nameField = new JLabel(employee.name);
+        JLabel nameField = new JLabel(employee.getName());
         p.add(nameField, gbc);
 
         // Contact No
@@ -441,8 +442,8 @@ public class LoginForm extends JFrame{
         p.add(contactNo, gbc);
 
         gbc.gridx = 1;
-        JLabel contactField = new JLabel(""+employee.contact);
-        p.add(contactField, gbc);
+        JLabel contactField = new JLabel(""+employee.getContact());
+        p.add(contactField, gbc);   
 
         // Designation
         JLabel designationLabel = new JLabel("Designation:");
@@ -452,7 +453,7 @@ public class LoginForm extends JFrame{
         p.add(designationLabel, gbc);
 
         gbc.gridx = 1;
-        JLabel designationField = new JLabel(employee.designation);
+        JLabel designationField = new JLabel(employee.getDesignation());
         p.add(designationField, gbc);
 
         // Salary
@@ -463,7 +464,7 @@ public class LoginForm extends JFrame{
         p.add(salaryLabel, gbc);
 
         gbc.gridx = 1;
-        JLabel salaryField = new JLabel(""+ employee.salary);
+        JLabel salaryField = new JLabel(""+ employee.getSalary());
         p.add(salaryField, gbc);
 
         // Address
@@ -474,7 +475,7 @@ public class LoginForm extends JFrame{
         p.add(adressLabel, gbc);
 
         gbc.gridx = 1;
-        JLabel addressField = new JLabel(employee.address);
+        JLabel addressField = new JLabel(employee.getAddress());
         p.add(addressField, gbc);
 
         JButton returnBtn = new JButton("Return");
