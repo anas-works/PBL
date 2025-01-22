@@ -7,15 +7,8 @@ public class DataBase {
     public final String PASSWORD = "";  // Your database password
     
     public ArrayList<Employee> employees = new ArrayList<>();
-    // public String username;
-    // public String password;
-    // public String name;
-    // public int contact;
-    // public String address;
-    // public String designation;
-    // public int salary;
-    // public int employeeID;
-    
+    public ArrayList<Items> items = new ArrayList<>();
+
     
     public boolean verifyUser(String username, String password){
         boolean isValid = false;
@@ -86,23 +79,6 @@ public class DataBase {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-            // while (resultSet.next()) {
-            //     this.employeeID = resultSet.getInt("id");
-            //     this.name = resultSet.getString("name");
-            //     this.contact = resultSet.getInt("contact");
-            //     this.address = resultSet.getString("address");
-            //     this.designation = resultSet.getString("designation");
-            //     this.salary = resultSet.getInt("salary");
-                
-            //     System.out.println("id: " + employeeID);
-            //     System.out.println("Name: " + name);
-            //     System.out.println("Contact: " + contact);
-            //     System.out.println("Address: " + address);
-            //     System.out.println("Designation: " + designation);
-            //     System.out.println("Salary: " + salary);
-            //     System.out.println("------------------------------");
-            // }
-
             // Step 3: Loop through the ResultSet and create Employee objects
             while (resultSet.next()) {
                 // Create a new Employee object for each row
@@ -149,6 +125,75 @@ public class DataBase {
             preparedStatement.setString(3, address);
             preparedStatement.setString(4, designation);
             preparedStatement.setLong(5, salary);
+    
+            // Execute the insert query
+            int rowsAffected = preparedStatement.executeUpdate();
+    
+            // Check if the insert was successful
+            if (rowsAffected > 0) {
+                System.out.println("Employee inserted successfully!");
+            }
+    
+            preparedStatement.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Database connection failed or insert failed.");
+            e.printStackTrace();
+        }
+    }
+     
+    
+
+    // ITEMS DATABASE
+
+    public void selectItems(){
+        try {
+            // connection succeeded
+            Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            String sql = "SELECT * FROM items";  // Replace 'employee' with your table name if needed
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Step 3: Loop through the ResultSet and create Employee objects
+            while (resultSet.next()) {
+                // Create a new Employee object for each row
+                Items itm = new Items();
+                
+                // Set the fields of the Employee object
+                itm.setitemName(resultSet.getString("itemName"));
+                itm.setRate(resultSet.getInt("rate"));
+                
+                // Add the Employee object to the ArrayList
+                items.add(itm);
+            }
+            
+            statement.close();
+            conn.close();
+    
+        } catch (Exception e) {
+            System.out.println("Database connection failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // Method to get the ArrayList of employees
+    public ArrayList<Items> getItems() {
+        return items;
+    }
+
+
+    public void insertItems(String itemName, int rate) {
+    
+        try {
+            // Establish the connection
+            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    
+            // Create SQL query to insert a new user
+            String sql = "INSERT INTO items (itemName, rate) VALUES (?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+    
+            preparedStatement.setString(1, itemName);
+            preparedStatement.setInt(2, rate);
     
             // Execute the insert query
             int rowsAffected = preparedStatement.executeUpdate();

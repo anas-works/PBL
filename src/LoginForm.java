@@ -777,83 +777,87 @@ public class LoginForm extends JFrame{
     }
 
     void additems(){
-        
-            // Create the main frame
-            JFrame frame = new JFrame("Add Item Form");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(400, 300);
-            frame.setLayout(new BorderLayout(10, 10));
     
-            // Create a panel for the input fields
-            JPanel inputPanel = new JPanel(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = new Insets(20, 20, 20, 20); // Padding
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-    
-            // Item Name Label and TextField
-            JLabel itemNameLabel = new JLabel("Item Name:");
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            inputPanel.add(itemNameLabel, gbc);
-    
-            JTextField itemNameField = new JTextField(20);
-            gbc.gridx = 1;
-            gbc.gridy = 0;
-            inputPanel.add(itemNameField, gbc);
-    
-            // Price Label and TextField
-            JLabel priceLabel = new JLabel("Price:");
-            gbc.gridx = 0;
-            gbc.gridy = 1;
-            inputPanel.add(priceLabel, gbc);
-    
-            JTextField priceField = new JTextField(20);
-            gbc.gridx = 1;
-            gbc.gridy = 1;
-            inputPanel.add(priceField, gbc);
-    
-            // Add Button
-            JButton addButton = new JButton("Add");
-            gbc.gridx = 0;
-            gbc.gridy = 2;
-            gbc.gridwidth = 1; // Span across one columns
-            gbc.anchor = GridBagConstraints.CENTER;
-            inputPanel.add(addButton, gbc);
-    
-            // Add the input panel to the center of the frame
-            frame.add(inputPanel, BorderLayout.CENTER);
-    
-            // Return Button at the bottom
-            JButton returnButton = new JButton("Return");
-            returnButton.setPreferredSize(new Dimension(100, 30));
-            JPanel returnButtonPanel = new JPanel();
-            returnButtonPanel.add(returnButton);
-            frame.add(returnButtonPanel, BorderLayout.SOUTH);
-    
-            // Add action listeners for buttons
-            addButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e){
-                    String itemName = itemNameField.getText();
-            String price = priceField.getText();
-            if (itemName.isEmpty() || price.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Please fill out all fields.", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(frame, "Item added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        // Create the main frame
+        JFrame frame = new JFrame("Add Item Form");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.setLayout(new BorderLayout(10, 10));
+
+        // Create a panel for the input fields
+        JPanel inputPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(20, 20, 20, 20); // Padding
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Item Name Label and TextField
+        JLabel itemNameLabel = new JLabel("Item Name:");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        inputPanel.add(itemNameLabel, gbc);
+
+        JTextField itemNameField = new JTextField(20);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        inputPanel.add(itemNameField, gbc);
+
+        // Price Label and TextField
+        JLabel priceLabel = new JLabel("Price:");
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        inputPanel.add(priceLabel, gbc);
+
+        JTextField priceField = new JTextField(20);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        inputPanel.add(priceField, gbc);
+
+        // Add Button
+        JButton addButton = new JButton("Add");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1; // Span across one columns
+        gbc.anchor = GridBagConstraints.CENTER;
+        inputPanel.add(addButton, gbc);
+
+        // Add the input panel to the center of the frame
+        frame.add(inputPanel, BorderLayout.CENTER);
+
+        // Return Button at the bottom
+        JButton returnButton = new JButton("Return");
+        returnButton.setPreferredSize(new Dimension(100, 30));
+        JPanel returnButtonPanel = new JPanel();
+        returnButtonPanel.add(returnButton);
+        frame.add(returnButtonPanel, BorderLayout.SOUTH);
+
+        // Add action listeners for buttons
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                String itemName = itemNameField.getText();
+                
+                if (itemName.isEmpty() & priceField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    int price = Integer.parseInt(priceField.getText());
+
+                    Items item = new Items();
+                    item.addItems(itemName, price);
+                    JOptionPane.showMessageDialog(frame, "Employee Added Successfully");
+                }
             }
-        }
-    }); 
+        }); 
                 
 
-                // return button action listener
-                 returnButton.addActionListener(new ActionListener() {
-                 public void actionPerformed(ActionEvent e){
-                 frame.dispose();
-                 menu();
-                 }
-                 });
-    
-            // Make the frame visible
-            frame.setVisible(true);
+        // return button action listener
+        returnButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                frame.dispose();
+                menu();
+            }
+        });
+
+        // Make the frame visible
+        frame.setVisible(true);
     }
 
             

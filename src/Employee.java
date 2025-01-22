@@ -61,21 +61,10 @@ public class Employee extends Person {
     void addEmployee(String name, int contact, String address, String designation, int salary){
         dataBase.insertEmployee(name, contact, address, designation, salary);
     }
-
-
-    void show() {
-        System.out.println("Name: " + getName());
-        System.out.println("Address: " + getAddress());
-        System.out.println("Designation: " + getDesignation());
-        System.out.println("Salary: " + getSalary());
-    }
+    
 
     public static ArrayList<Employee> getEmployeeList() {
         return employeeList;
     }
 
-    public static void main(String[] args) {
-       LoginForm l = new LoginForm();
-       l.viewEmployee();
-    }
 }
