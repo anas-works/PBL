@@ -396,6 +396,7 @@ public class LoginForm extends JFrame{
 
 
     void viewEmployee(){
+        Employee employee = new Employee();
         JFrame viewEmployeeFrame = new JFrame("View Employees");
         viewEmployeeFrame.setBounds(300, 90, 900, 600);   
         viewEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -411,12 +412,69 @@ public class LoginForm extends JFrame{
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         p.add(titleLabel , gbc);
+        
+        // Employee Name
+        JLabel name = new JLabel("Employee Name:");
+        name.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        p.add(name, gbc);
+        
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+        JLabel nameField = new JLabel(employee.name);
+        p.add(nameField, gbc);
 
+        // Contact No
+        JLabel contactNo = new JLabel("Contact No:");
+        contactNo.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        p.add(contactNo, gbc);
+
+        gbc.gridx = 1;
+        JLabel contactField = new JLabel(""+employee.contact);
+        p.add(contactField, gbc);
+
+        // Designation
+        JLabel designationLabel = new JLabel("Designation:");
+        designationLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        p.add(designationLabel, gbc);
+
+        gbc.gridx = 1;
+        JLabel designationField = new JLabel(employee.designation);
+        p.add(designationField, gbc);
+
+        // Salary
+        JLabel salaryLabel = new JLabel("Salary:");
+        salaryLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        p.add(salaryLabel, gbc);
+
+        gbc.gridx = 1;
+        JLabel salaryField = new JLabel(""+ employee.salary);
+        p.add(salaryField, gbc);
+
+        // Address
+        JLabel adressLabel = new JLabel("Address:");
+        adressLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        p.add(adressLabel, gbc);
+
+        gbc.gridx = 1;
+        JLabel addressField = new JLabel(employee.address);
+        p.add(addressField, gbc);
 
         JButton returnBtn = new JButton("Return");
         returnBtn.setFont(new Font("Arial", Font.PLAIN, 18));
         returnBtn.setPreferredSize(new Dimension(150, 40));
-        gbc.gridy = 2;
+        gbc.gridy = 7;
+        gbc.gridx = 4;
         p.add(returnBtn, gbc);
 
         returnBtn.addActionListener(new ActionListener() {
@@ -537,8 +595,8 @@ public class LoginForm extends JFrame{
                 if (name.isEmpty() & contactField.getText().isEmpty() & designation.isEmpty() & salaryField.getText().isEmpty() & address.isEmpty()) {
                     JOptionPane.showMessageDialog(addEmployeeFrame, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
                 }else{
-                    long contact = Integer.parseInt(contactField.getText());
-                    long salary = Integer.parseInt(salaryField.getText());
+                    int contact = Integer.parseInt(contactField.getText());
+                    int salary = Integer.parseInt(salaryField.getText());
 
                     Employee employee = new Employee();
                     employee.addEmployee(name, contact, address, designation, salary);
@@ -555,7 +613,7 @@ public class LoginForm extends JFrame{
         // Create the main frame
         JFrame frame = new JFrame("Boutique Management System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 500);
+        frame.setBounds(300, 90, 900, 600);   
 
         // Create the main panel with GridLayout
         frame.setLayout(new GridLayout(1, 2, 30, 0)); 
@@ -675,7 +733,7 @@ public class LoginForm extends JFrame{
 
         JFrame f = new JFrame("Submit");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(400, 300);
+        f.setBounds(300, 90, 900, 600);   
 
          //add panel
          JPanel panel = new JPanel();
@@ -709,7 +767,7 @@ public class LoginForm extends JFrame{
     void transaction(){
         JFrame f = new JFrame("Transaction");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(400, 300);
+        f.setBounds(300, 90, 900, 600);   
 
          //add panel
          JPanel panel = new JPanel();

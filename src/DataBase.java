@@ -72,6 +72,35 @@ public class DataBase {
             e.printStackTrace();
         }
     }
+    
+        
+        
+    public void selectEmployee(String name, long contact, String address, String designation, long salary){
+            
+        try {
+            // connection succeeded
+            Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            
+            String sql = "SELECT * FROM employee (name, contact, address, designation, salary) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+               
+            preparedStatement.setString(1, name);
+            preparedStatement.setLong(2, contact);
+            preparedStatement.setString(3, address);
+            preparedStatement.setString(4, designation);
+            preparedStatement.setLong(5, salary);
+        
+            // Execute the query
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+    
+            preparedStatement.close();
+            conn.close();
+    
+        } catch (Exception e) {
+            System.out.println("Database connection failed");
+        }
+    }
 
 
     public void insertEmployee(String name, long contact, String address, String designation, long salary) {
@@ -105,6 +134,8 @@ public class DataBase {
             e.printStackTrace();
         }
     }
+
+
 
 
 }

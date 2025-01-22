@@ -1,6 +1,5 @@
 public class Person {
     public String name;
-    public long conatct;
+    public long contact;
     public String address;
-
 }
