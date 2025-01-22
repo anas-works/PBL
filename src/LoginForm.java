@@ -288,7 +288,7 @@ public class LoginForm extends JFrame{
         returnBtn.setPreferredSize(new Dimension(150, 40));
         gbc.gridx = 3;
         gbc.gridy = 7;
-        panel.add(returnBtn,BorderLayout.SOUTH);  // add button to the bottom
+        panel.add(returnBtn , gbc);  
 
         
         employee.addActionListener(new ActionListener() {
