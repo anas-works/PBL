@@ -1,9 +1,19 @@
 import java.util.ArrayList;
 
 public class Employee extends Person {
-
+    private DataBase dataBase = new DataBase();
+    
+    private static ArrayList<Employee> employeeList = new ArrayList<>();
     public String designation;
     public int salary;
+
+    public Employee() {
+        if (employeeList.isEmpty()) {
+            DataBase dataBase = new DataBase();
+            dataBase.selectEmployee();  // Fetch employees from the database
+            employeeList = dataBase.getEmployees();  // Set the list of employees
+        }
+    }
 
     public String getName() {
         return name;
@@ -49,26 +59,9 @@ public class Employee extends Person {
 
 
     void addEmployee(String name, int contact, String address, String designation, int salary){
-        DataBase dataBase = new DataBase();
         dataBase.insertEmployee(name, contact, address, designation, salary);
     }
 
-
-    void viewEmployee(){
-        DataBase dataBase = new DataBase();
-        
-        // Step 2: Fetch employees from the database and store in the ArrayList
-        dataBase.selectEmployee();
-        
-        // Step 3: Get the ArrayList of Employee objects from DataBase
-        ArrayList<Employee> employeeList = dataBase.getEmployees();
-        
-        // Step 4: Loop through the ArrayList and display each employee's data
-        for (Employee emp : employeeList) {
-            emp.show();
-            System.out.println("------------------------------");
-        }
-    }
 
     void show() {
         System.out.println("Name: " + getName());
@@ -77,10 +70,12 @@ public class Employee extends Person {
         System.out.println("Salary: " + getSalary());
     }
 
-
+    public static ArrayList<Employee> getEmployeeList() {
+        return employeeList;
+    }
 
     public static void main(String[] args) {
-       Employee e = new Employee();
-       e.viewEmployee();
+       LoginForm l = new LoginForm();
+       l.viewEmployee();
     }
 }

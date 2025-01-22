@@ -6,7 +6,7 @@ public class DataBase {
     public final String USERNAME = "root";  // Your database username
     public final String PASSWORD = "";  // Your database password
     
-    private ArrayList<Employee> employees = new ArrayList<>();
+    public ArrayList<Employee> employees = new ArrayList<>();
     // public String username;
     // public String password;
     // public String name;
@@ -123,7 +123,8 @@ public class DataBase {
             conn.close();
     
         } catch (Exception e) {
-            System.out.println("Database connection failed");
+            System.out.println("Database connection failed: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

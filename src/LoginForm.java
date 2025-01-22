@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class LoginForm extends JFrame{
 
@@ -403,7 +404,8 @@ public class LoginForm extends JFrame{
 
     void viewEmployee(){
         Employee employee = new Employee();
-
+        ArrayList<Employee> employeeList = employee.getEmployeeList();
+        
         JFrame viewEmployeeFrame = new JFrame("View Employees");
         viewEmployeeFrame.setBounds(300, 90, 900, 600);   
         viewEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -419,63 +421,32 @@ public class LoginForm extends JFrame{
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         p.add(titleLabel , gbc);
+
+        JTextArea displayArea = new JTextArea(30, 70);
+        displayArea.setEditable(false);
+        displayArea.setFont(new Font("Arial", Font.PLAIN, 16));
+
+        // Build the display string for all employees
+        StringBuilder displayText = new StringBuilder();
+        for (Employee e : employeeList) {
+            displayText.append("Employee Name: ").append(e.getName()).append("\n")
+                    .append("Contact No: ").append(e.getContact()).append("\n")
+                    .append("Designation: ").append(e.getDesignation()).append("\n")
+                    .append("Salary: ").append(e.getSalary()).append("\n")
+                    .append("Address: ").append(e.getAddress()).append("\n")
+                    .append("-----------------------------------------------\n");
+        }
         
-        // Employee Name
-        JLabel name = new JLabel("Employee Name:");
-        name.setFont(new Font("Arial", Font.PLAIN, 18));
+        // Set the complete employee data to the JTextArea
+        displayArea.setText(displayText.toString());
+
+        // Add JScrollPane for scrolling in case of long employee data
+        JScrollPane scroll = new JScrollPane(displayArea);
+        scroll.setPreferredSize(new Dimension(500, 400));
         gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        p.add(name, gbc);
-        
-        gbc.gridx = 1;
-        gbc.gridwidth = 1;
-        JLabel nameField = new JLabel(employee.getName());
-        p.add(nameField, gbc);
-
-        // Contact No
-        JLabel contactNo = new JLabel("Contact No:");
-        contactNo.setFont(new Font("Arial", Font.PLAIN, 18));
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        p.add(contactNo, gbc);
-
-        gbc.gridx = 1;
-        JLabel contactField = new JLabel(""+employee.getContact());
-        p.add(contactField, gbc);   
-
-        // Designation
-        JLabel designationLabel = new JLabel("Designation:");
-        designationLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        p.add(designationLabel, gbc);
-
-        gbc.gridx = 1;
-        JLabel designationField = new JLabel(employee.getDesignation());
-        p.add(designationField, gbc);
-
-        // Salary
-        JLabel salaryLabel = new JLabel("Salary:");
-        salaryLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        p.add(salaryLabel, gbc);
-
-        gbc.gridx = 1;
-        JLabel salaryField = new JLabel(""+ employee.getSalary());
-        p.add(salaryField, gbc);
-
-        // Address
-        JLabel adressLabel = new JLabel("Address:");
-        adressLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        p.add(adressLabel, gbc);
-
-        gbc.gridx = 1;
-        JLabel addressField = new JLabel(employee.getAddress());
-        p.add(addressField, gbc);
+        gbc.gridy = 1;
+        gbc.gridwidth = 4;
+        p.add(scroll, gbc);
 
         JButton returnBtn = new JButton("Return");
         returnBtn.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -483,7 +454,7 @@ public class LoginForm extends JFrame{
         gbc.gridy = 7;
         gbc.gridx = 4;
         p.add(returnBtn, gbc);
-
+        
         returnBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 viewEmployeeFrame.dispose();
