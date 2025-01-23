@@ -283,15 +283,6 @@ public class LoginForm extends JFrame{
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(Reciept , gbc);
 
-        JButton transact = new JButton("Transaction");
-        transact.setFont(new Font("Arial", Font.PLAIN, 20));
-        transact.setPreferredSize(new Dimension(200, 50));
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.gridwidth = 4;
-        gbc.anchor = GridBagConstraints.CENTER;
-        panel.add(transact , gbc);
-
         JButton returnBtn = new JButton("Return");
         returnBtn.setFont(new Font("Arial", Font.PLAIN, 16));
         returnBtn.setPreferredSize(new Dimension(150, 40));
@@ -318,13 +309,6 @@ public class LoginForm extends JFrame{
             public void actionPerformed(ActionEvent e){
                 j.dispose();
                 new LoginForm();
-            }
-        });
-
-        transact.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                j.dispose();
-                transaction();
             }
         });
         
@@ -593,40 +577,6 @@ public class LoginForm extends JFrame{
         
         addEmployeeFrame.add(addPanel, BorderLayout.CENTER);
         addEmployeeFrame.setVisible(true);
-    }
- 
-    void transaction(){
-        JFrame f = new JFrame("Transaction");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setBounds(300, 90, 900, 600);   
-
-         //add panel
-         JPanel panel = new JPanel();
-         panel.setLayout(new BorderLayout());
-         f.add(panel);
-
-         // Create a display area
-        JTextArea displayArea = new JTextArea(350, 250); 
-        displayArea.setEditable(false);
-
-        //adding scrollpanel to display area
-        JScrollPane scroll = new JScrollPane(displayArea);
-
-        panel.add(scroll);
-        f.setVisible(true);
-
-        //return button
-        JButton returnBtn = new JButton("Return");
-        returnBtn.setFont(new Font("Arial", Font.PLAIN, 16));
-        returnBtn.setPreferredSize(new Dimension(150, 40));
-        panel.add(returnBtn,BorderLayout.SOUTH);  // add button to the bottom
-
-        returnBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                f.dispose();
-                menu();
-            }
-        });
     }
 
 
