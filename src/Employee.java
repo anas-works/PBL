@@ -10,8 +10,8 @@ public class Employee extends Person {
     public Employee() {
         if (employeeList.isEmpty()) {
             DataBase dataBase = new DataBase();
-            dataBase.selectEmployee();  // Fetch employees from the database
-            employeeList = dataBase.getEmployees();  // Set the list of employees
+            dataBase.selectEmployee();
+            employeeList = dataBase.getEmployees();
         }
     }
 
@@ -62,14 +62,12 @@ public class Employee extends Person {
         dataBase.insertEmployee(name, contact, address, designation, salary);
         Employee emp = new Employee();
         
-        // Set the fields of the Employee object
         emp.setName(name);
         emp.setContact(contact);
         emp.setAddress(address);
         emp.setDesignation(designation);
         emp.setSalary(salary);
         
-        // Add the Employee object to the ArrayList
         employeeList.add(emp);
     }
     

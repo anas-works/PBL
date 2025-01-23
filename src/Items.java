@@ -11,8 +11,8 @@ public class Items {
     public Items() {
         if (itemList.isEmpty()) {
             DataBase dataBase = new DataBase();
-            dataBase.selectItems();  // Fetch employees from the database
-            itemList = dataBase.getItems();  // Set the list of employees
+            dataBase.selectItems();
+            itemList = dataBase.getItems();
         }
     }
 

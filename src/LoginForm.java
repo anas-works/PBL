@@ -418,7 +418,6 @@ public class LoginForm extends JFrame{
         displayArea.setEditable(false);
         displayArea.setFont(new Font("Arial", Font.PLAIN, 16));
 
-        // Build the display string for all employees
         StringBuilder displayText = new StringBuilder();
         for (Employee emp : employeeList) {
             displayText.append("Employee Name: ").append(emp.getName()).append("\n")
@@ -429,10 +428,8 @@ public class LoginForm extends JFrame{
                     .append("-----------------------------------------------\n");
         }
         
-        // Set the complete employee data to the JTextArea
         displayArea.setText(displayText.toString());
 
-        // Add JScrollPane for scrolling in case of long employee data
         JScrollPane scroll = new JScrollPane(displayArea);
         scroll.setPreferredSize(new Dimension(500, 400));
         gbc.gridx = 0;
@@ -581,19 +578,16 @@ public class LoginForm extends JFrame{
 
 
     void additems(){
-        // Create the main frame
         JFrame frame = new JFrame("Add Item Form");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(300, 90, 900, 600);   
         frame.setLayout(new BorderLayout(10, 10));
 
-        // Create a panel for the input fields
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(20, 20, 20, 20); // Padding
+        gbc.insets = new Insets(20, 20, 20, 20);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Item Name Label and TextField
         JLabel itemNameLabel = new JLabel("Item Name:");
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -604,7 +598,6 @@ public class LoginForm extends JFrame{
         gbc.gridy = 0;
         inputPanel.add(itemNameField, gbc);
 
-        // Price Label and TextField
         JLabel priceLabel = new JLabel("Price:");
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -615,25 +608,21 @@ public class LoginForm extends JFrame{
         gbc.gridy = 1;
         inputPanel.add(priceField, gbc);
 
-        // Add Button
         JButton addButton = new JButton("Add");
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.gridwidth = 1; // Span across one columns
+        gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.CENTER;
         inputPanel.add(addButton, gbc);
 
-        // Add the input panel to the center of the frame
         frame.add(inputPanel, BorderLayout.CENTER);
 
-        // Return Button at the bottom
         JButton returnButton = new JButton("Return");
         returnButton.setPreferredSize(new Dimension(100, 30));
         JPanel returnButtonPanel = new JPanel();
         returnButtonPanel.add(returnButton);
         frame.add(returnButtonPanel, BorderLayout.SOUTH);
 
-        // Add action listeners for buttons
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 String itemName = itemNameField.getText();
@@ -666,22 +655,18 @@ public class LoginForm extends JFrame{
     
     void recieptPanel(){
 
-        // Create the main frame
         JFrame frame = new JFrame("Boutique Management System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(300, 90, 900, 600);   
 
-        // Create the main panel with GridLayout
         frame.setLayout(new GridLayout(1, 2, 30, 0)); 
 
-        // Left panel for customer details and buttons
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new GridBagLayout()); 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5); 
 
-        // Customer name and text field
         JLabel nameLabel = new JLabel("Customer Name:");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JTextField nameField = new JTextField();
@@ -695,7 +680,6 @@ public class LoginForm extends JFrame{
         gbc.weighty = 0.3; 
         leftPanel.add(nameField, gbc);
 
-        // Contact label and text field
         JLabel contactLabel = new JLabel("Contact:");
         contactLabel.setFont(new Font("Arial", Font.BOLD, 16));
         JTextField contactField = new JTextField();
@@ -708,11 +692,9 @@ public class LoginForm extends JFrame{
         gbc.weighty = 0.3; 
         leftPanel.add(contactField, gbc);
 
-        // Empty space to push buttons lower
         gbc.gridy = 2;
         leftPanel.add(new JLabel(" "), gbc);
 
-        // Buttons panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridBagLayout());
         GridBagConstraints buttonGBC = new GridBagConstraints();
@@ -721,7 +703,6 @@ public class LoginForm extends JFrame{
         JButton submitButton = new JButton("Submit");
         JButton returnButton = new JButton("Return");
 
-        // Add a little more space for buttons to appear smaller and lower
         buttonGBC.gridx = 0;
         buttonGBC.gridy = 0;
         buttonGBC.insets = new Insets(10, 5, 5, 5); 
@@ -731,13 +712,11 @@ public class LoginForm extends JFrame{
         buttonPanel.add(returnButton, buttonGBC);
 
         gbc.gridy = 3;
-        gbc.gridwidth = 2; // Span both columns for button panel
+        gbc.gridwidth = 2;
         leftPanel.add(buttonPanel, gbc);
 
-        // Right panel for items and total
         JPanel rightPanel = new JPanel(new GridLayout(11, 1, 0, 15)); 
 
-        // Item label
         JLabel itemLabel = new JLabel("Item", JLabel.CENTER);
         itemLabel.setFont(new Font("Arial", Font.BOLD, 16));
         rightPanel.add(itemLabel);
@@ -770,12 +749,10 @@ public class LoginForm extends JFrame{
             });
         }
         
-        // Total label
         totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        rightPanel.add(new JLabel()); // Placeholder
+        rightPanel.add(new JLabel());
         rightPanel.add(totalLabel);
 
-        // return button action listener
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 frame.dispose();
@@ -783,7 +760,6 @@ public class LoginForm extends JFrame{
             }
         });
 
-        // submit button action listener
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 String customerName = nameField.getText();
@@ -801,11 +777,9 @@ public class LoginForm extends JFrame{
             }
         });
         
-        // Add panels to the frame
         frame.add(leftPanel);
         frame.add(rightPanel);
 
-        // Make the frame visible
         frame.setVisible(true);
     }
 
@@ -816,6 +790,7 @@ public class LoginForm extends JFrame{
 
          //add panel
          JPanel panel = new JPanel();
+         
          panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
         f.add(panel);
          f.setVisible(true);
