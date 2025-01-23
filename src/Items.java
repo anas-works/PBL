@@ -37,6 +37,12 @@ public class Items {
 
     void addItems(String itemName, int rate){
         dataBase.insertItems(itemName, rate);
+
+        Items item = new Items();
+        item.setitemName(itemName);
+        item.setRate(rate);
+
+        itemList.add(item);
     }
     
 

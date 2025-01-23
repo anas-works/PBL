@@ -60,6 +60,17 @@ public class Employee extends Person {
 
     void addEmployee(String name, int contact, String address, String designation, int salary){
         dataBase.insertEmployee(name, contact, address, designation, salary);
+        Employee emp = new Employee();
+        
+        // Set the fields of the Employee object
+        emp.setName(name);
+        emp.setContact(contact);
+        emp.setAddress(address);
+        emp.setDesignation(designation);
+        emp.setSalary(salary);
+        
+        // Add the Employee object to the ArrayList
+        employeeList.add(emp);
     }
     
 

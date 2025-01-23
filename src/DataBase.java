@@ -7,6 +7,7 @@ public class DataBase {
     public final String PASSWORD = "";  // Your database password
     
     public ArrayList<Employee> employees = new ArrayList<>();
+    public ArrayList<Customer> customers = new ArrayList<>();
     public ArrayList<Items> items = new ArrayList<>();
 
     
@@ -15,10 +16,10 @@ public class DataBase {
         
         try {
             // connection succeeded
-            Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            Connection con = DriverManager.getConnection(URL,USERNAME,PASSWORD);
             
             String sql = "SELECT * FROM login WHERE username=? AND password=?";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setString(1, username);  // Set username from input
             preparedStatement.setString(2, password);  // Set password from input
 
@@ -30,7 +31,7 @@ public class DataBase {
             }
 
             preparedStatement.close();
-            conn.close();
+            con.close();
 
         } catch (Exception e) {
             System.out.println("Database connection failed");
@@ -43,11 +44,11 @@ public class DataBase {
     
         try {
             // Establish the connection
-            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
     
             // Create SQL query to insert a new user
             String sql = "INSERT INTO login (username, password) VALUES (?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
     
             // Set the parameters for username and password
             preparedStatement.setString(1, username);
@@ -62,7 +63,7 @@ public class DataBase {
             }
     
             preparedStatement.close();
-            conn.close();
+            con.close();
         } catch (Exception e) {
             System.out.println("Database connection failed or insert failed.");
             e.printStackTrace();
@@ -74,9 +75,9 @@ public class DataBase {
     public void selectEmployee(){
         try {
             // connection succeeded
-            Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            Connection con = DriverManager.getConnection(URL,USERNAME,PASSWORD);
             String sql = "SELECT * FROM employee";  // Replace 'employee' with your table name if needed
-            Statement statement = conn.createStatement();
+            Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             // Step 3: Loop through the ResultSet and create Employee objects
@@ -96,7 +97,7 @@ public class DataBase {
             }
             
             statement.close();
-            conn.close();
+            con.close();
     
         } catch (Exception e) {
             System.out.println("Database connection failed: " + e.getMessage());
@@ -114,11 +115,11 @@ public class DataBase {
     
         try {
             // Establish the connection
-            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
     
             // Create SQL query to insert a new user
             String sql = "INSERT INTO employee (name, contact, address, designation, salary) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
     
             preparedStatement.setString(1, name);
             preparedStatement.setLong(2, contact);
@@ -135,7 +136,75 @@ public class DataBase {
             }
     
             preparedStatement.close();
-            conn.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Database connection failed or insert failed.");
+            e.printStackTrace();
+        }
+    }
+        
+        
+    // Customers
+
+    public void selectCustomer(){
+        try {
+            // connection succeeded
+            Connection con = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            String sql = "SELECT * FROM customers";  // Replace 'employee' with your table name if needed
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Step 3: Loop through the ResultSet and create Employee objects
+            while (resultSet.next()) {
+                // Create a new Employee object for each row
+                Customer cus = new Customer();
+                
+                // Set the fields of the Employee object
+                cus.setName(resultSet.getString("name"));
+                cus.setContact(resultSet.getInt("contact"));
+                
+                // Add the Employee object to the ArrayList
+                customers.add(cus);
+            }
+            
+            statement.close();
+            con.close();
+    
+        } catch (Exception e) {
+            System.out.println("Database connection failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // Method to get the ArrayList of employees
+    public ArrayList<Customer> getCustomer() {
+        return customers;
+    }
+
+
+    public void insertCustomers(String name, int contact) {
+    
+        try {
+            // Establish the connection
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    
+            // Create SQL query to insert a new user
+            String sql = "INSERT INTO customers (name, contact) VALUES (?, ?)";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+    
+            preparedStatement.setString(1, name);
+            preparedStatement.setLong(2, contact);
+    
+            // Execute the insert query
+            int rowsAffected = preparedStatement.executeUpdate();
+    
+            // Check if the insert was successful
+            if (rowsAffected > 0) {
+                System.out.println("Customers inserted successfully!");
+            }
+    
+            preparedStatement.close();
+            con.close();
         } catch (Exception e) {
             System.out.println("Database connection failed or insert failed.");
             e.printStackTrace();
@@ -149,9 +218,9 @@ public class DataBase {
     public void selectItems(){
         try {
             // connection succeeded
-            Connection conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+            Connection con = DriverManager.getConnection(URL,USERNAME,PASSWORD);
             String sql = "SELECT * FROM items";  // Replace 'employee' with your table name if needed
-            Statement statement = conn.createStatement();
+            Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             // Step 3: Loop through the ResultSet and create Employee objects
@@ -168,7 +237,7 @@ public class DataBase {
             }
             
             statement.close();
-            conn.close();
+            con.close();
     
         } catch (Exception e) {
             System.out.println("Database connection failed: " + e.getMessage());
@@ -176,7 +245,7 @@ public class DataBase {
         }
     }
 
-    // Method to get the ArrayList of employees
+    //Method to get the ArrayList of employees
     public ArrayList<Items> getItems() {
         return items;
     }
@@ -186,11 +255,11 @@ public class DataBase {
     
         try {
             // Establish the connection
-            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
     
             // Create SQL query to insert a new user
             String sql = "INSERT INTO items (itemName, rate) VALUES (?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
     
             preparedStatement.setString(1, itemName);
             preparedStatement.setInt(2, rate);
@@ -204,7 +273,7 @@ public class DataBase {
             }
     
             preparedStatement.close();
-            conn.close();
+            con.close();
         } catch (Exception e) {
             System.out.println("Database connection failed or insert failed.");
             e.printStackTrace();

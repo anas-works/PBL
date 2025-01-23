@@ -15,6 +15,14 @@ public class LoginForm extends JFrame{
     private JButton loginButton, resetButton;
     private JCheckBox showPassword;
     private JButton signUpButton;
+
+    private int total = 0;
+    public int getTotal() {
+        return total;
+    }
+    public void setTotal(int total) {
+        this.total = total;
+    }
     
     LoginForm(){
         setTitle("Login Page");
@@ -428,12 +436,12 @@ public class LoginForm extends JFrame{
 
         // Build the display string for all employees
         StringBuilder displayText = new StringBuilder();
-        for (Employee e : employeeList) {
-            displayText.append("Employee Name: ").append(e.getName()).append("\n")
-                    .append("Contact No: ").append(e.getContact()).append("\n")
-                    .append("Designation: ").append(e.getDesignation()).append("\n")
-                    .append("Salary: ").append(e.getSalary()).append("\n")
-                    .append("Address: ").append(e.getAddress()).append("\n")
+        for (Employee emp : employeeList) {
+            displayText.append("Employee Name: ").append(emp.getName()).append("\n")
+                    .append("Contact No: ").append(emp.getContact()).append("\n")
+                    .append("Designation: ").append(emp.getDesignation()).append("\n")
+                    .append("Salary: ").append(emp.getSalary()).append("\n")
+                    .append("Address: ").append(emp.getAddress()).append("\n")
                     .append("-----------------------------------------------\n");
         }
         
@@ -587,7 +595,127 @@ public class LoginForm extends JFrame{
         addEmployeeFrame.setVisible(true);
     }
  
+    void transaction(){
+        JFrame f = new JFrame("Transaction");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setBounds(300, 90, 900, 600);   
+
+         //add panel
+         JPanel panel = new JPanel();
+         panel.setLayout(new BorderLayout());
+         f.add(panel);
+
+         // Create a display area
+        JTextArea displayArea = new JTextArea(350, 250); 
+        displayArea.setEditable(false);
+
+        //adding scrollpanel to display area
+        JScrollPane scroll = new JScrollPane(displayArea);
+
+        panel.add(scroll);
+        f.setVisible(true);
+
+        //return button
+        JButton returnBtn = new JButton("Return");
+        returnBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+        returnBtn.setPreferredSize(new Dimension(150, 40));
+        panel.add(returnBtn,BorderLayout.SOUTH);  // add button to the bottom
+
+        returnBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                f.dispose();
+                menu();
+            }
+        });
+    }
+
+
+    void additems(){
+        // Create the main frame
+        JFrame frame = new JFrame("Add Item Form");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(300, 90, 900, 600);   
+        frame.setLayout(new BorderLayout(10, 10));
+
+        // Create a panel for the input fields
+        JPanel inputPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(20, 20, 20, 20); // Padding
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Item Name Label and TextField
+        JLabel itemNameLabel = new JLabel("Item Name:");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        inputPanel.add(itemNameLabel, gbc);
+
+        JTextField itemNameField = new JTextField(20);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        inputPanel.add(itemNameField, gbc);
+
+        // Price Label and TextField
+        JLabel priceLabel = new JLabel("Price:");
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        inputPanel.add(priceLabel, gbc);
+
+        JTextField priceField = new JTextField(20);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        inputPanel.add(priceField, gbc);
+
+        // Add Button
+        JButton addButton = new JButton("Add");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1; // Span across one columns
+        gbc.anchor = GridBagConstraints.CENTER;
+        inputPanel.add(addButton, gbc);
+
+        // Add the input panel to the center of the frame
+        frame.add(inputPanel, BorderLayout.CENTER);
+
+        // Return Button at the bottom
+        JButton returnButton = new JButton("Return");
+        returnButton.setPreferredSize(new Dimension(100, 30));
+        JPanel returnButtonPanel = new JPanel();
+        returnButtonPanel.add(returnButton);
+        frame.add(returnButtonPanel, BorderLayout.SOUTH);
+
+        // Add action listeners for buttons
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                String itemName = itemNameField.getText();
+                
+                if (itemName.isEmpty() & priceField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    int price = Integer.parseInt(priceField.getText());
+
+                    Items item = new Items();
+                    item.addItems(itemName, price);
+                    JOptionPane.showMessageDialog(frame, "Items Added Successfully");
+                }
+            }
+        }); 
+                
+
+        // return button action listener
+        returnButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                frame.dispose();
+                menu();
+            }
+        });
+
+        // Make the frame visible
+        frame.setVisible(true);
+    }
+
+    
     void recieptPanel(){
+
         // Create the main frame
         JFrame frame = new JFrame("Boutique Management System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -664,21 +792,35 @@ public class LoginForm extends JFrame{
         itemLabel.setFont(new Font("Arial", Font.BOLD, 16));
         rightPanel.add(itemLabel);
 
-        // Checkboxes for items with text fields
-        JCheckBox[] itemCheckBoxes = new JCheckBox[8];
-        JTextField[] itemFields = new JTextField[8];
-        for (int i = 0; i < 8; i++) {
+        
+        Items it = new Items();
+        ArrayList<Items> itemList = it.getItemList();
+        
+        JLabel totalLabel = new JLabel("Total $ = " + getTotal(), JLabel.CENTER);
+        for (Items i : itemList) {
             JPanel itemPanel = new JPanel(new GridLayout(1, 2)); 
-            itemCheckBoxes[i] = new JCheckBox("Item" + (i + 1));
-            itemCheckBoxes[i].setFont(new Font("Arial", Font.PLAIN, 14));
-            itemFields[i] = new JTextField();
-            itemPanel.add(itemCheckBoxes[i]);
-            itemPanel.add(itemFields[i]);
+            JCheckBox itemCheckBoxes = new JCheckBox(i.getitemName());
+            itemCheckBoxes.setFont(new Font("Arial", Font.PLAIN, 14));
+            JLabel itemRate = new JLabel("$"+i.getRate());
+            itemPanel.add(itemCheckBoxes);
+            itemPanel.add(itemRate);
             rightPanel.add(itemPanel);
-        }
+            
+            itemCheckBoxes.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if (itemCheckBoxes.isSelected()) {
+                        total += i.getRate();
+                    } else if (!itemCheckBoxes.isSelected()) {
+                        total -= i.getRate();
+                    }
+                    setTotal(total);
 
+                    totalLabel.setText("Total $ = " + total);
+                }
+            });
+        }
+        
         // Total label
-        JLabel totalLabel = new JLabel("Total $ = 0", JLabel.CENTER);
         totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
         rightPanel.add(new JLabel()); // Placeholder
         rightPanel.add(totalLabel);
@@ -694,8 +836,18 @@ public class LoginForm extends JFrame{
         // submit button action listener
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                dispose();
-                submit();
+                String customerName = nameField.getText();
+                int contact = Integer.parseInt(contactField.getText());
+                
+                if (customerName.isEmpty() & contactField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    Customer customer = new Customer();
+                    customer.addCustomer(customerName, contact);
+                }
+                
+                frame.dispose();
+                submit(customerName,contact);
             }
         });
         
@@ -707,26 +859,29 @@ public class LoginForm extends JFrame{
         frame.setVisible(true);
     }
 
-    void submit (){
+    void submit (String name, int contact){
 
         JFrame f = new JFrame("Submit");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setBounds(300, 90, 900, 600);   
+        f.setBounds(300, 90, 600, 400);   
 
          //add panel
          JPanel panel = new JPanel();
-         panel.setLayout(new BorderLayout());
-         f.add(panel);
+         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
+        f.add(panel);
+         f.setVisible(true);
 
          // Create a display area
-        JTextArea displayArea = new JTextArea(350, 250); 
-        displayArea.setEditable(false);
+         JLabel nameLabel = new JLabel("Name: " + name);
+         nameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+         panel.add(nameLabel);
 
-        //adding scrollpanel to display area
-        JScrollPane scroll = new JScrollPane(displayArea);
+         JLabel contactLabel = new JLabel("Contact: " + contact);
+         contactLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+         panel.add(contactLabel);
 
-        panel.add(scroll);
-        f.setVisible(true);
+         JLabel total = new JLabel("Total Bill = $" + getTotal());
+         total.setFont(new Font("Arial", Font.PLAIN, 20));
+         panel.add(total);
 
         //return button
         JButton returnBtn = new JButton("Return");
@@ -737,127 +892,9 @@ public class LoginForm extends JFrame{
         returnBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 f.dispose();
-                menu();
+                recieptPanel();
             }
         });
-    }
-
-    void transaction(){
-        JFrame f = new JFrame("Transaction");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setBounds(300, 90, 900, 600);   
-
-         //add panel
-         JPanel panel = new JPanel();
-         panel.setLayout(new BorderLayout());
-         f.add(panel);
-
-         // Create a display area
-        JTextArea displayArea = new JTextArea(350, 250); 
-        displayArea.setEditable(false);
-
-        //adding scrollpanel to display area
-        JScrollPane scroll = new JScrollPane(displayArea);
-
-        panel.add(scroll);
-        f.setVisible(true);
-
-        //return button
-        JButton returnBtn = new JButton("Return");
-        returnBtn.setFont(new Font("Arial", Font.PLAIN, 16));
-        returnBtn.setPreferredSize(new Dimension(150, 40));
-        panel.add(returnBtn,BorderLayout.SOUTH);  // add button to the bottom
-
-        returnBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                f.dispose();
-                menu();
-            }
-        });
-    }
-
-    void additems(){
-    
-        // Create the main frame
-        JFrame frame = new JFrame("Add Item Form");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLayout(new BorderLayout(10, 10));
-
-        // Create a panel for the input fields
-        JPanel inputPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(20, 20, 20, 20); // Padding
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        // Item Name Label and TextField
-        JLabel itemNameLabel = new JLabel("Item Name:");
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        inputPanel.add(itemNameLabel, gbc);
-
-        JTextField itemNameField = new JTextField(20);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        inputPanel.add(itemNameField, gbc);
-
-        // Price Label and TextField
-        JLabel priceLabel = new JLabel("Price:");
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        inputPanel.add(priceLabel, gbc);
-
-        JTextField priceField = new JTextField(20);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        inputPanel.add(priceField, gbc);
-
-        // Add Button
-        JButton addButton = new JButton("Add");
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1; // Span across one columns
-        gbc.anchor = GridBagConstraints.CENTER;
-        inputPanel.add(addButton, gbc);
-
-        // Add the input panel to the center of the frame
-        frame.add(inputPanel, BorderLayout.CENTER);
-
-        // Return Button at the bottom
-        JButton returnButton = new JButton("Return");
-        returnButton.setPreferredSize(new Dimension(100, 30));
-        JPanel returnButtonPanel = new JPanel();
-        returnButtonPanel.add(returnButton);
-        frame.add(returnButtonPanel, BorderLayout.SOUTH);
-
-        // Add action listeners for buttons
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                String itemName = itemNameField.getText();
-                
-                if (itemName.isEmpty() & priceField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(frame, "All fields must be filled out!", "Error", JOptionPane.ERROR_MESSAGE);
-                }else{
-                    int price = Integer.parseInt(priceField.getText());
-
-                    Items item = new Items();
-                    item.addItems(itemName, price);
-                    JOptionPane.showMessageDialog(frame, "Employee Added Successfully");
-                }
-            }
-        }); 
-                
-
-        // return button action listener
-        returnButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                frame.dispose();
-                menu();
-            }
-        });
-
-        // Make the frame visible
-        frame.setVisible(true);
     }
 
             
